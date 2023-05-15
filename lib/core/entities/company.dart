@@ -1,5 +1,5 @@
 class Company {
-  String companyId;
+  String id;
   String companyName;
   String? companyImagePath;
   String companyPassword;
@@ -7,7 +7,7 @@ class Company {
   DateTime updatedAt;
   
   Company({
-    required this.companyId,
+    required this.id,
     required this.companyName,
     required this.companyImagePath,
     required this.companyPassword,
@@ -17,7 +17,7 @@ class Company {
 
   factory Company.fromMap(Map<String, dynamic> map) {
     return Company(
-      companyId: map['companyId'] != null ? map['companyId'] as String : "undefined",
+      id: map['companyId'] != null ? map['companyId'] as String : "undefined",
       companyName: map['companyName'] != null ? map['companyName'] as String : "undefined",
       companyImagePath: map['companyImagePath'] != null ? map['companyImagePath'] as String : null,
       companyPassword: map['companyPassword'] != null ? map['companyPassword'] as String : "undefined",

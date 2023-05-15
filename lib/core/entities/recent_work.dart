@@ -1,5 +1,5 @@
 class RecentWork {
-  String recentWorkId;
+  String id;
   String companyId;
   String recentWorkName;
   String recentWorkDescription;
@@ -10,7 +10,7 @@ class RecentWork {
   DateTime updatedAt;
 
   RecentWork({
-    required this.recentWorkId,
+    required this.id,
     required this.companyId,
     required this.recentWorkName,
     required this.recentWorkDescription,
@@ -23,7 +23,7 @@ class RecentWork {
 
   factory RecentWork.fromMap(Map<String, dynamic> map) {
     return RecentWork(
-      recentWorkId: map['recentWorkId'] != null ? map['recentWorkId'] as String : "undefined",
+      id: map['recentWorkId'] != null ? map['recentWorkId'] as String : "undefined",
       companyId: map['companyId'] != null ? map['companyId'] as String : "undefined",
       recentWorkName: map['recentWorkName'] != null ? map['recentWorkName'] as String : "undefined",
       recentWorkDescription: map['recentWorkDescription'] != null ? map['recentWorkDescription'] as String : "undefined",

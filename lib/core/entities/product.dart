@@ -1,5 +1,5 @@
 class Product {
-  String productId;
+  String id;
   String companyId;
   double productPrice;
   String productDescription;
@@ -9,7 +9,7 @@ class Product {
   DateTime updatedAt;
   
   Product({
-    required this.productId,
+    required this.id,
     required this.companyId,
     required this.productPrice,
     required this.productDescription,
@@ -21,7 +21,7 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      productId: map['productId'] != null ? map['productId'] as String : "undefined",
+      id: map['productId'] != null ? map['productId'] as String : "undefined",
       companyId: map['companyId'] != null ? map['companyId'] as String : "undefined",
       productPrice: map['productPrice'] != null ? map['productPrice'] as double : 0,
       productDescription: map['productDescription'] != null ? map['productDescription'] as String : "undefined",

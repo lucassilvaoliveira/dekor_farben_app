@@ -1,12 +1,12 @@
 class CampaignProduct {
-  String campaignProductId;
+  String id;
   String campaignId;
   String productId;
   DateTime createdAt;
   DateTime updatedAt;
 
   CampaignProduct({
-    required this.campaignProductId,
+    required this.id,
     required this.campaignId,
     required this.productId,
     required this.createdAt,
@@ -15,7 +15,7 @@ class CampaignProduct {
 
   factory CampaignProduct.fromMap(Map<String, dynamic> map) {
     return CampaignProduct(
-      campaignProductId: map['campaignProductId'] != null ? map['campaignProductId'] as String : "undefined",
+      id: map['campaignProductId'] != null ? map['campaignProductId'] as String : "undefined",
       campaignId: map['campaignId'] != null ? map['campaignId'] as String : "undefined",
       productId: map['productId'] != null ? map['productId'] as String : "undefined",
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),

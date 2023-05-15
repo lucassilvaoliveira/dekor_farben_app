@@ -1,5 +1,5 @@
 class Campaign {
-  String campaignId;
+  String id;
   String campaignName;
   String campaignDescription;
   bool campaignReward;
@@ -10,7 +10,7 @@ class Campaign {
   DateTime updatedAt;
 
   Campaign({
-    required this.campaignId,
+    required this.id,
     required this.campaignName,
     required this.campaignDescription,
     required this.campaignReward,
@@ -23,7 +23,7 @@ class Campaign {
 
   factory Campaign.fromMap(Map<String, dynamic> map) {
     return Campaign(
-      campaignId: map['campaignId'] != null ? map['campaignId'] as String : "undefined",
+      id: map['campaignId'] != null ? map['campaignId'] as String : "undefined",
       campaignName: map['campaignName'] != null ? map['campaignName'] as String : "undefined",
       campaignDescription: map['campaignDescription'] != null ? map['campaignDescription'] as String : "undefined",
       campaignReward: map['campaignReward'] != null ? map['campaignReward'] as bool : false,

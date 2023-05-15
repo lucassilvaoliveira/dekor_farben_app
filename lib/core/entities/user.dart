@@ -1,5 +1,6 @@
 class User {
-  String userId;
+  String id;
+  String? userType;
   String userEmail;
   String userPassword;
   String userName;
@@ -11,7 +12,8 @@ class User {
   DateTime updatedAt;
 
   User({
-    required this.userId,
+    required this.id,
+    required this.userType,
     required this.userEmail,
     required this.userPassword,
     required this.userName,
@@ -25,7 +27,8 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      userId: map['userId'] != null ? map['userId'] as String : "undefined",
+      id: map['userId'] != null ? map['userId'] as String : "undefined",
+      userType: map['userType'] != null ? map['userType'] as String : null,
       userEmail: map['userEmail'] != null ? map['userEmail'] as String : "undefined",
       userPassword: map['userPassword'] != null ? map['userPassword'] as String : "undefined",
       userName: map['userName'] != null ? map['userName'] as String : "undefined",
