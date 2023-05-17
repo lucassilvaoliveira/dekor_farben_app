@@ -17,10 +17,10 @@ class UserCampaign {
 
   factory UserCampaign.fromMap(Map<String, dynamic> map) {
     return UserCampaign(
-      id: map['userCampaignId'] != null ? map['userCampaignId'] as String : "undefined",
-      userId: map['userId'] != null ? map['userId'] as String : "undefined",
-      campaignId: map['campaignId'] != null ? map['campaignId'] as String : "undefined",
-      isRescued: map['isRescued'] != null ? map['isRescued'] as bool : true,
+      id: map['userCampaignId'] ?? "undefined",
+      userId: map['userId'] ?? "undefined",
+      campaignId: map['campaignId'] ?? "undefined",
+      isRescued: map['isRescued'] ?? true,
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
     );

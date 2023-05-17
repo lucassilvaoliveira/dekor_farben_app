@@ -17,10 +17,10 @@ class Company {
 
   factory Company.fromMap(Map<String, dynamic> map) {
     return Company(
-      id: map['companyId'] != null ? map['companyId'] as String : "undefined",
-      companyName: map['companyName'] != null ? map['companyName'] as String : "undefined",
-      companyImagePath: map['companyImagePath'] != null ? map['companyImagePath'] as String : null,
-      companyPassword: map['companyPassword'] != null ? map['companyPassword'] as String : "undefined",
+      id: map['companyId'] ?? "undefined",
+      companyName: map['companyName'] ?? "undefined",
+      companyImagePath: map['companyImagePath'],
+      companyPassword: map['companyPassword'] ?? "undefined",
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
     );

@@ -23,13 +23,13 @@ class RecentWork {
 
   factory RecentWork.fromMap(Map<String, dynamic> map) {
     return RecentWork(
-      id: map['recentWorkId'] != null ? map['recentWorkId'] as String : "undefined",
-      companyId: map['companyId'] != null ? map['companyId'] as String : "undefined",
-      recentWorkName: map['recentWorkName'] != null ? map['recentWorkName'] as String : "undefined",
-      recentWorkDescription: map['recentWorkDescription'] != null ? map['recentWorkDescription'] as String : "undefined",
+      id: map['recentWorkId'] ?? "undefined",
+      companyId: map['companyId'] ?? "undefined",
+      recentWorkName: map['recentWorkName'] ?? "undefined",
+      recentWorkDescription: map['recentWorkDescription'] ?? "undefined",
       recentWorkDate: map['recentWorkDate'] != null ? DateTime.parse(map['recentWorkDate']) : DateTime.now(),
       recentWorkPublication: null,
-      recentWorkCreatedBy: map['recentWorkCreatedBy'] != null ? map['recentWorkCreatedBy'] as String : "undefined",
+      recentWorkCreatedBy: map['recentWorkCreatedBy'] ?? "undefined",
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
     );

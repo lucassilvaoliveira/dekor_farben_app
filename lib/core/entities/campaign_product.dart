@@ -15,9 +15,9 @@ class CampaignProduct {
 
   factory CampaignProduct.fromMap(Map<String, dynamic> map) {
     return CampaignProduct(
-      id: map['campaignProductId'] != null ? map['campaignProductId'] as String : "undefined",
-      campaignId: map['campaignId'] != null ? map['campaignId'] as String : "undefined",
-      productId: map['productId'] != null ? map['productId'] as String : "undefined",
+      id: map['campaignProductId'] ?? "undefined",
+      campaignId: map['campaignId'] ?? "undefined",
+      productId: map['productId'] ?? "undefined",
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
     );

@@ -21,12 +21,12 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      id: map['productId'] != null ? map['productId'] as String : "undefined",
-      companyId: map['companyId'] != null ? map['companyId'] as String : "undefined",
-      productPrice: map['productPrice'] != null ? map['productPrice'] as double : 0,
-      productDescription: map['productDescription'] != null ? map['productDescription'] as String : "undefined",
-      productImagePath: map['productImagePath'] != null ? map['productImagePath'] as String : null,
-      productAmount: map['productAmount'] != null ? map['productAmount'] as int : 0,
+      id: map['productId'] ?? "undefined",
+      companyId: map['companyId'] ?? "undefined",
+      productPrice: map['productPrice'] ?? 0,
+      productDescription: map['productDescription'] ?? "undefined",
+      productImagePath: map['productImagePath'],
+      productAmount: map['productAmount'] ?? 0,
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
     );

@@ -7,25 +7,8 @@ import 'package:multiple_result/multiple_result.dart';
 
 class UserMemoryRepositoryImpl implements IBaseRepository<User> {
   @override
-  Future<Result<List<User>, InfraException>> get({required String? entityId}) async {
+  Future<Result<List<User>, InfraException>> get() async {
     try {
-      if (entityId != null) {
-        return Success([
-          User(
-            id: uuid.v4(),
-            userType: null,
-            userEmail: "example@gmail.com",
-            userPassword: uuid.v4(),
-            userName: "luxa silva",
-            userBirthday: DateTime.now(),
-            userCpf: 13665879957,
-            userPoints: 700,
-            userAvatarPath: null,
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-          )
-        ]);
-      }
       return Success(
         List.generate(
           5,
@@ -47,6 +30,26 @@ class UserMemoryRepositoryImpl implements IBaseRepository<User> {
     } catch (e) {
       return Error(InfraException(cause: e.toString()));
     }
+  }
+
+  @override
+  Future<Result<User, InfraException>> getOne({required String? entityId}) async {
+    if (entityId != null) {
+      return Success(User(
+        id: entityId,
+        userType: null,
+        userEmail: "example@gmail.com",
+        userPassword: uuid.v4(),
+        userName: "luxa silva",
+        userBirthday: DateTime.now(),
+        userCpf: 13665879957,
+        userPoints: 700,
+        userAvatarPath: null,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ));
+    }
+    return Error(InfraException(cause: "'entityId is missing'"));
   }
 
   @override

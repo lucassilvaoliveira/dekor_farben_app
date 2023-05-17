@@ -5,7 +5,7 @@ import 'package:dekor_farben_app/infraestructure/contracts/i_base_repository.dar
 import 'package:multiple_result/multiple_result.dart';
 
 class CreateUserUseCase {
-  final IBaseRepository repository;
+  final IBaseRepository<User> repository;
 
   CreateUserUseCase({required this.repository});
 

@@ -27,15 +27,15 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['userId'] != null ? map['userId'] as String : "undefined",
-      userType: map['userType'] != null ? map['userType'] as String : null,
-      userEmail: map['userEmail'] != null ? map['userEmail'] as String : "undefined",
-      userPassword: map['userPassword'] != null ? map['userPassword'] as String : "undefined",
-      userName: map['userName'] != null ? map['userName'] as String : "undefined",
+      id: map['userId'] ?? "undefined",
+      userType: map['userType'],
+      userEmail: map['userEmail'] ?? "undefined",
+      userPassword: map['userPassword'] ?? "undefined",
+      userName: map['userName'] ?? "undefined",
       userBirthday: map['userBirthday'] != null ? DateTime.parse(map['userBirthday']) : DateTime.now(),
-      userCpf: map['userCpf'] != null ? map['userCpf'] as int : 0,
-      userPoints: map['userPoints'] != null ? map['userPoints'] as int : 0,
-      userAvatarPath: map['userAvatarPath'] != null ? map['userAvatarPath'] as String : null,
+      userCpf: map['userCpf'] ?? 0,
+      userPoints: map['userPoints'] ?? 0,
+      userAvatarPath: map['userAvatarPath'],
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
     );
