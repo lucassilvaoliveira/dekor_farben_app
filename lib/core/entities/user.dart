@@ -25,7 +25,7 @@ class User {
     required this.updatedAt,
   });
 
-  factory User.fromMap(Map<String, dynamic> map) {
+  factory User.fromRestRoute(Map<String, dynamic> map) {
     return User(
       id: map['userId'] ?? "undefined",
       userType: map['userType'],

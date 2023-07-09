@@ -1,11 +1,9 @@
-import 'package:dekor_farben_app/screens/login/components/store/login_store.dart';
 import 'package:dekor_farben_app/screens/login/components/widgets/login_info.dart';
 import 'package:dekor_farben_app/screens/login/components/widgets/stack_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
-  final LoginStore loginStore;
-  const LoginView({super.key, required this.loginStore});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class LoginView extends StatelessWidget {
           child: Column(
             children: [
               StackImageWidget(size: size),
-              LoginInfoWidget(size: size, loginStore: loginStore)
+              LoginInfoWidget(size: size)
             ],
           ),
         ),

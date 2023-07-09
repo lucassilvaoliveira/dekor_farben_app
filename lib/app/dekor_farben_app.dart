@@ -1,4 +1,4 @@
-import 'package:dekor_farben_app/global/themeData.dart';
+import 'package:dekor_farben_app/global/theme_data.dart';
 import 'package:dekor_farben_app/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 

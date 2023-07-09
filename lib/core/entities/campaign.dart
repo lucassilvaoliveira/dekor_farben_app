@@ -1,7 +1,7 @@
 class Campaign {
   String id;
   String creatorId;
-  List<String> campaignParticipansId;
+  List<String> campaignParticipantsId;
   String campaignName;
   String campaignDescription;
   bool campaignReward;
@@ -14,7 +14,7 @@ class Campaign {
   Campaign({
     required this.id,
     required this.creatorId,
-    required this.campaignParticipansId,
+    required this.campaignParticipantsId,
     required this.campaignName,
     required this.campaignDescription,
     required this.campaignReward,
@@ -29,7 +29,7 @@ class Campaign {
     return Campaign(
       id: map['campaignId'] ?? "undefined",
       creatorId: map['creatorId'] ?? "undefined",
-      campaignParticipansId: map['campaignParticipantsId'] ?? [],
+      campaignParticipantsId: map['campaignParticipantsId'] ?? [],
       campaignName: map['campaignName'] ?? "undefined",
       campaignDescription: map['campaignDescription'] ?? "undefined",
       campaignReward: map['campaignReward'] ?? false,

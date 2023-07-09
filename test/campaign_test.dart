@@ -36,7 +36,7 @@ void main() {
         campaign: Campaign(
       id: uuid.v4(),
       creatorId: adminUser.id,
-      campaignParticipansId: [],
+      campaignParticipantsId: [],
       campaignName: "setembro amarelo",
       campaignDescription: "baskldaskldsa",
       campaignReward: false,
@@ -78,7 +78,7 @@ void main() {
         campaign: Campaign(
       id: uuid.v4(),
       creatorId: user.id,
-      campaignParticipansId: [],
+      campaignParticipantsId: [],
       campaignName: "setembro amarelo",
       campaignDescription: "baskldaskldsa",
       campaignReward: false,
@@ -139,7 +139,7 @@ void main() {
 
   test("should be return an specific campaign", () async {
     final GetOneCampaignUseCase getOneCampaignUseCase = GetOneCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
-    final Campaign campaignToFind = Campaign(id: uuid.v4(), creatorId: uuid.v4(), campaignParticipansId: [], campaignName: "setembro amarelo", campaignDescription: "campaignDescription", campaignReward: false, campaignInitialDate: DateTime.now(), campaignEndDate: DateTime.now(), campaignIsOpen: true, createdAt: DateTime.now(), updatedAt: DateTime.now());
+    final Campaign campaignToFind = Campaign(id: uuid.v4(), creatorId: uuid.v4(), campaignParticipantsId: [], campaignName: "setembro amarelo", campaignDescription: "campaignDescription", campaignReward: false, campaignInitialDate: DateTime.now(), campaignEndDate: DateTime.now(), campaignIsOpen: true, createdAt: DateTime.now(), updatedAt: DateTime.now());
     var sut;
 
     final call = await getOneCampaignUseCase.call(campaignId: campaignToFind.id);

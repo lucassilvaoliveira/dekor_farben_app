@@ -1,4 +1,4 @@
-import 'package:dekor_farben_app/screens/login/components/presenter/login_presenter.dart';
+import 'package:dekor_farben_app/screens/login/components/view/login_body.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -7,7 +7,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: LoginPresenter(),
+      body: LoginView(),
     );
   }
 }

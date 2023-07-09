@@ -30,12 +30,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Realizar Login!", style: Theme.of(context).textTheme?.titleLarge),
-              Container(
-                height: 16,
-                width: 16,
-                color: Colors.purple,
-              )
+              Text("Realizar Login!", style: Theme.of(context).textTheme.titleLarge)
             ],
           )
         ],

@@ -9,23 +9,23 @@ class UserMemoryRepositoryImpl implements IBaseRepository<User> {
   @override
   Future<Result<List<User>, InfraException>> get() async {
     try {
-      return Success(
-        List.generate(
-          5,
-          (index) => User(
-            id: "${uuid.v4()} index: $index",
-            userType: null,
-            userEmail: "email$index@gmail.com",
-            userPassword: "${uuid.v4()} index: $index",
-            userName: "user = $index",
-            userBirthday: DateTime.now(),
-            userCpf: index,
-            userPoints: index,
-            userAvatarPath: null,
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
+        return Success(
+          List.generate(
+            5,
+            (index) => User(
+              id: "${uuid.v4()} index: $index",
+              userType: null,
+              userEmail: "email$index@gmail.com",
+              userPassword: "${uuid.v4()} index: $index",
+              userName: "user = $index",
+              userBirthday: DateTime.now(),
+              userCpf: index,
+              userPoints: index,
+              userAvatarPath: null,
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+            ),
           ),
-        ),
       );
     } catch (e) {
       return Error(InfraException(cause: e.toString()));

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';
@@ -14,7 +16,7 @@ class CampaignMemoryRepositoryImpl implements IBaseRepository<Campaign> {
         (index) => Campaign(
           id: uuid.v4(),
           creatorId: uuid.v4(),
-          campaignParticipansId: [],
+          campaignParticipantsId: [],
           campaignName: "campaignName $index",
           campaignDescription: "campaignDescription $index",
           campaignReward: false,
@@ -36,7 +38,7 @@ class CampaignMemoryRepositoryImpl implements IBaseRepository<Campaign> {
       return Success(Campaign(
         id: entityId,
         creatorId: uuid.v4(),
-        campaignParticipansId: [],
+        campaignParticipantsId: [],
         campaignName: "campaignName",
         campaignDescription: "campaignDescription",
         campaignReward: false,

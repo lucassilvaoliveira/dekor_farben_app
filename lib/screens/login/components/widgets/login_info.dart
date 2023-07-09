@@ -1,15 +1,12 @@
-import 'package:dekor_farben_app/screens/login/components/store/login_store.dart';
-import 'package:dekor_farben_app/screens/login/components/widgets/open_login_modal_button_widget.dart';
+import 'package:dekor_farben_app/screens/login/components/widgets/go_to_login_form.dart';
 import 'package:flutter/material.dart';
 
 class LoginInfoWidget extends StatelessWidget {
   final Size size;
-  final LoginStore loginStore;
 
   const LoginInfoWidget({
     super.key,
     required this.size,
-    required this.loginStore,
   });
 
   @override
@@ -28,9 +25,9 @@ class LoginInfoWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              OpenLoginModalButtonWidget(size: size, buttonText: "Usuário", loginStore: loginStore),
+              GoToLoginForm(size: size, buttonText: "Usuário"),
               SizedBox(width: size.width * .1),
-              OpenLoginModalButtonWidget(size: size, buttonText: "Empresa", loginStore: loginStore)
+              GoToLoginForm(size: size, buttonText: "Empresa")
             ],
           )
         ],

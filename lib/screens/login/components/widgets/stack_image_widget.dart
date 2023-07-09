@@ -1,6 +1,5 @@
 import 'package:dekor_farben_app/screens/login/components/widgets/image_clipper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class StackImageWidget extends StatelessWidget {
   final Size size;
