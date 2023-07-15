@@ -15,14 +15,14 @@ class Company {
     required this.updatedAt,
   });
 
-  factory Company.fromMap(Map<String, dynamic> map) {
+  factory Company.fromApi(Map<String, dynamic> map) {
     return Company(
-      id: map['companyId'] ?? "undefined",
-      companyName: map['companyName'] ?? "undefined",
-      companyImagePath: map['companyImagePath'],
-      companyPassword: map['companyPassword'] ?? "undefined",
-      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
-      updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
+      id: map['items']['companyId'] ?? "undefined",
+      companyName: map['items']['companyName'] ?? "undefined",
+      companyImagePath: map['items']['companyImagePath'],
+      companyPassword: map['items']['companyPassword'] ?? "undefined",
+      createdAt: map['items']['createdAt'] != null ? DateTime.parse(map['items']['createdAt']) : DateTime.now(),
+      updatedAt: map['items']['updatedAt'] != null ? DateTime.parse(map['items']['updatedAt']) : DateTime.now(),
     );
   }
 }

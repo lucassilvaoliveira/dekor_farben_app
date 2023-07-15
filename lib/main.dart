@@ -11,4 +11,3 @@ void main(List<String> args) {
 
   runApp(const RxRoot(child: DekorFarbenApp()));
 }
-

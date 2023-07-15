@@ -8,7 +8,8 @@ class GetOneCompanyUseCase {
 
   GetOneCompanyUseCase({required this.repository});
 
-  Future<Result<Company, InfraException>> call({required String companyId}) async {
+  Future<Result<Company, InfraException>> call(
+      {required String companyId}) async {
     return await repository.getOne(entityId: companyId);
   }
 }

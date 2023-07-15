@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';

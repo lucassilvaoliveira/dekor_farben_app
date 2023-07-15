@@ -25,7 +25,7 @@ class Campaign {
     required this.updatedAt,
   });
 
-  factory Campaign.fromMap(Map<String, dynamic> map) {
+  factory Campaign.fromApi(Map<String, dynamic> map) {
     return Campaign(
       id: map['campaignId'] ?? "undefined",
       creatorId: map['creatorId'] ?? "undefined",
