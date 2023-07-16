@@ -1,4 +1,4 @@
-import 'package:dekor_farben_app/screens/login/components/widgets/go_to_login_form.dart';
+import 'package:dekor_farben_app/screens/login_screen/components/widgets/go_to_login_form.dart';
 import 'package:flutter/material.dart';
 
 class LoginInfoWidget extends StatelessWidget {

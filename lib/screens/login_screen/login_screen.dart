@@ -1,4 +1,4 @@
-import 'package:dekor_farben_app/screens/login/components/view/login_body.dart';
+import 'package:dekor_farben_app/screens/login_screen/components/view/login_body.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {

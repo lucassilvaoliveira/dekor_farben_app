@@ -1,6 +1,6 @@
 import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/screens/login/components/atom/login_atoms.dart';
-import 'package:dekor_farben_app/screens/login/components/widgets/login_form.dart';
+import 'package:dekor_farben_app/screens/login_screen/components/atom/login_atoms.dart';
+import 'package:dekor_farben_app/screens/login_screen/components/widgets/login_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rx_notifier/rx_notifier.dart';

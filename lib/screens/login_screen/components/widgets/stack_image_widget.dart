@@ -1,4 +1,4 @@
-import 'package:dekor_farben_app/screens/login/components/widgets/image_clipper.dart';
+import 'package:dekor_farben_app/screens/login_screen/components/widgets/image_clipper.dart';
 import 'package:flutter/material.dart';
 
 class StackImageWidget extends StatelessWidget {

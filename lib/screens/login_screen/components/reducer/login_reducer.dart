@@ -1,4 +1,4 @@
-import 'package:dekor_farben_app/screens/login/components/atom/login_atoms.dart';
+import 'package:dekor_farben_app/screens/login_screen/components/atom/login_atoms.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class LoginReducer extends RxReducer {
