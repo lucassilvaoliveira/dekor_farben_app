@@ -4,8 +4,8 @@ import 'package:dekor_farben_app/core/entities/company.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';
 import 'package:dekor_farben_app/helpers/infra_exception.dart';
 import 'package:dekor_farben_app/infraestructure/contracts/i_base_repository.dart';
-import 'package:multiple_result/src/result.dart';
 import 'package:http/http.dart' as http;
+import 'package:multiple_result/multiple_result.dart';
 
 class CompanyHttpRepositoryImpl implements IBaseRepository<Company> {
   @override

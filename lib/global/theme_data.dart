@@ -6,12 +6,12 @@ ThemeData themeData() => ThemeData(
   textTheme: const TextTheme(
     titleLarge: TextStyle(
       fontFamily: "Chivo",
-      fontSize: 20,
+      fontSize: 30,
       color: kDefaultTitleColor
     ),
     titleMedium: TextStyle(
         fontFamily: "Chivo",
-        fontSize: 15,
+        fontSize: 20,
         color: kDefaultSubtitleColor
     ),
     titleSmall: TextStyle(

@@ -46,10 +46,7 @@ class StackImageWidget extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: -50,
-            child: Container(
-              child:
-                  Image.asset("assets/images/decorator-login-image.png"),
-            ),
+            child: Image.asset("assets/images/decorator-login-image.png"),
           )
         ],
       ),

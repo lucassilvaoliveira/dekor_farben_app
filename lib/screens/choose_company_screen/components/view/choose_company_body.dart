@@ -1,4 +1,6 @@
 import 'package:dekor_farben_app/global/texts.dart';
+import 'package:dekor_farben_app/screens/home_screen/home_screeen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChooseCompanyBody extends StatelessWidget {
@@ -15,7 +17,7 @@ class ChooseCompanyBody extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 8),
-            height: size.height * .25,
+            height: size.height * .3,
             width: size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,19 +31,27 @@ class ChooseCompanyBody extends StatelessWidget {
                 ),
                 Text(
                   chooseThemeScreenDescription,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontSize: 20),
                 )
               ],
             ),
           ),
-          Container(
-            height: size.height * .65,
+          SizedBox(
+            height: size.height * .6,
             width: size.width,
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 10),
               itemCount: 10,
               itemBuilder: (_, index) => GestureDetector(
-                onTap: () => print("testing $index"),
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) => const HomeScreen()),
+                      (route) => false);
+                },
                 child: Container(
                   color: Colors.transparent,
                   padding:
@@ -55,9 +65,9 @@ class ChooseCompanyBody extends StatelessWidget {
                         'assets/images/github-logo.png',
                         width: size.width * .25,
                       ),
-                      SizedBox(height: 10),
-                      Text("  Git Hub"),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
+                      const Text("  Git Hub"),
+                      const SizedBox(height: 10),
                       Container(
                         height: 2,
                         width: size.width,
