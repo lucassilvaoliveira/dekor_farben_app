@@ -2,16 +2,18 @@ class Product {
   String id;
   String companyId;
   double productPrice;
+  String productName;
   String productDescription;
   String? productImagePath;
   int productAmount;
   DateTime createdAt;
   DateTime updatedAt;
-  
+
   Product({
     required this.id,
     required this.companyId,
     required this.productPrice,
+    required this.productName,
     required this.productDescription,
     required this.productImagePath,
     required this.productAmount,
@@ -25,10 +27,15 @@ class Product {
       companyId: map['companyId'] ?? "undefined",
       productPrice: map['productPrice'] ?? 0,
       productDescription: map['productDescription'] ?? "undefined",
+      productName: map['productName'] ?? "undefined",
       productImagePath: map['productImagePath'],
       productAmount: map['productAmount'] ?? 0,
-      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
-      updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
+      createdAt: map['createdAt'] != null
+          ? DateTime.parse(map['createdAt'])
+          : DateTime.now(),
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.parse(map['updatedAt'])
+          : DateTime.now(),
     );
   }
 }

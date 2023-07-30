@@ -1,6 +1,5 @@
 import 'package:dekor_farben_app/global/texts.dart';
-import 'package:dekor_farben_app/screens/home_screen/home_screeen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dekor_farben_app/screens/choose_company_screen/components/widgets/company_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChooseCompanyBody extends StatelessWidget {
@@ -45,38 +44,7 @@ class ChooseCompanyBody extends StatelessWidget {
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 10),
               itemCount: 10,
-              itemBuilder: (_, index) => GestureDetector(
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(builder: (context) => const HomeScreen()),
-                      (route) => false);
-                },
-                child: Container(
-                  color: Colors.transparent,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  height: size.height * .20,
-                  width: size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/github-logo.png',
-                        width: size.width * .25,
-                      ),
-                      const SizedBox(height: 10),
-                      const Text("  Git Hub"),
-                      const SizedBox(height: 10),
-                      Container(
-                        height: 2,
-                        width: size.width,
-                        color: Colors.black.withOpacity(.3),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              itemBuilder: (_, index) => CompanyWidget(size: size),
             ),
           )
         ],
@@ -84,3 +52,5 @@ class ChooseCompanyBody extends StatelessWidget {
     );
   }
 }
+
+

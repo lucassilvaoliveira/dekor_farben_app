@@ -37,9 +37,10 @@ void main() {
       id: uuid.v4(),
       creatorId: adminUser.id,
       campaignParticipantsId: [],
+      products: [],
       campaignName: "setembro amarelo",
       campaignDescription: "baskldaskldsa",
-      campaignReward: false,
+      campaignReward: 0,
       campaignInitialDate: DateTime.now(),
       campaignEndDate: DateTime.now(),
       campaignIsOpen: true,
@@ -79,9 +80,10 @@ void main() {
       id: uuid.v4(),
       creatorId: user.id,
       campaignParticipantsId: [],
+      products: [],
       campaignName: "setembro amarelo",
       campaignDescription: "baskldaskldsa",
-      campaignReward: false,
+      campaignReward: 0,
       campaignInitialDate: DateTime.now(),
       campaignEndDate: DateTime.now(),
       campaignIsOpen: true,
@@ -126,7 +128,8 @@ void main() {
   });
 
   test("should be return a list of campaigns", () async {
-    final GetCampaignUseCase getCampaignUseCase = GetCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
+    final GetCampaignUseCase getCampaignUseCase =
+        GetCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
 
     var sut;
 
@@ -138,11 +141,26 @@ void main() {
   });
 
   test("should be return an specific campaign", () async {
-    final GetOneCampaignUseCase getOneCampaignUseCase = GetOneCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
-    final Campaign campaignToFind = Campaign(id: uuid.v4(), creatorId: uuid.v4(), campaignParticipantsId: [], campaignName: "setembro amarelo", campaignDescription: "campaignDescription", campaignReward: false, campaignInitialDate: DateTime.now(), campaignEndDate: DateTime.now(), campaignIsOpen: true, createdAt: DateTime.now(), updatedAt: DateTime.now());
+    final GetOneCampaignUseCase getOneCampaignUseCase =
+        GetOneCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
+    final Campaign campaignToFind = Campaign(
+      id: uuid.v4(),
+      creatorId: uuid.v4(),
+      campaignParticipantsId: [],
+      products: [],
+      campaignName: "setembro amarelo",
+      campaignDescription: "campaignDescription",
+      campaignReward: 0,
+      campaignInitialDate: DateTime.now(),
+      campaignEndDate: DateTime.now(),
+      campaignIsOpen: true,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
     var sut;
 
-    final call = await getOneCampaignUseCase.call(campaignId: campaignToFind.id);
+    final call =
+        await getOneCampaignUseCase.call(campaignId: campaignToFind.id);
 
     call.when((success) => sut = success, (error) => sut = error);
 

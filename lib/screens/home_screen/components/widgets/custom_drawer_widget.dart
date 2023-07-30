@@ -1,4 +1,6 @@
 import 'package:dekor_farben_app/global/constants.dart';
+import 'package:dekor_farben_app/screens/campaigns_screen/campaigns_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
@@ -7,7 +9,13 @@ class CustomDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 7, 14, 37),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: kDefaultPrimaryGradient,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       padding: const EdgeInsets.only(top: 50, bottom: 70, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -21,11 +29,17 @@ class CustomDrawerWidget extends StatelessWidget {
                 children: [
                   Text(
                     'Lucas Silva de Oliveira',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.white),
                   ),
                   Text(
                     'Active Status',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.white),
                   )
                 ],
               )
@@ -34,19 +48,29 @@ class CustomDrawerWidget extends StatelessWidget {
           Column(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => const CampaignsScreen(),
+                    ),
+                  );
+                },
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       const Icon(
                         Icons.admin_panel_settings,
-                        color: kDefaultSubtitleColor,
+                        color: Colors.white,
                         size: 30,
                       ),
                       Text(
                         "Campaigns",
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(color: Colors.white),
                       )
                     ],
                   ),
@@ -60,14 +84,17 @@ class CustomDrawerWidget extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.settings,
-                    color: kDefaultSubtitleColor,
+                    color: Colors.white,
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     'Settings',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.white),
                   ),
                 ],
               ),
@@ -78,14 +105,17 @@ class CustomDrawerWidget extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.logout,
-                    color: kDefaultSubtitleColor,
+                    color: Colors.white,
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     'Log out',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.white),
                   )
                 ],
               )

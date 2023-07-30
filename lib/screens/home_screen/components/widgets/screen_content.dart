@@ -1,4 +1,5 @@
 import 'package:dekor_farben_app/global/constants.dart';
+import 'package:dekor_farben_app/screens/home_screen/components/widgets/points_markup_widget.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/recently_works_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -47,26 +48,38 @@ class _ScreenContentState extends State<ScreenContent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Olá, Lucas!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontSize: 25),
+                SizedBox(
+                  width: size.width * .7,
+                  child: Text(
+                    'Olá, Lucas!',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 25),
+                  ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      containerRadiusWhenDrawerOpen = 30;
-                      xOffset = 230;
-                      yOffset = 150;
-                      scaleFactor = 0.6;
-                      drawerIsOpen = true;
-                    });
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    size: iconSize,
+                Container(
+                  padding: const EdgeInsets.all(1),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        containerRadiusWhenDrawerOpen = 30;
+                        xOffset = 230;
+                        yOffset = 150;
+                        scaleFactor = 0.6;
+                        drawerIsOpen = true;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      size: iconSize,
+                    ),
                   ),
                 ),
               ],
@@ -89,12 +102,17 @@ class _ScreenContentState extends State<ScreenContent> {
                           text: '500 Decor coins ',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        const WidgetSpan(
-                          child: Icon(Icons.star),
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.star,
+                            color: kDefaultPrimaryGradient.first,
+                          ),
                         )
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 16),
+                  const PointsMarkupWidget()
                 ],
               ),
             ),

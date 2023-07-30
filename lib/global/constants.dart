@@ -8,3 +8,8 @@ const kDefaultScaffoldColor = Color(0xFFEFEFEF);
 const kDefaultContainerColor = Color(0xFFD6D6D6);
 const kDefaultTitleColor = Color(0xFF000000);
 const kDefaultSubtitleColor = Color(0xFF969696);
+
+const kDefaultPrimaryGradient = [
+  Color(0xFF39A7FF),
+  Color(0xFF5CC4FF),
+];
