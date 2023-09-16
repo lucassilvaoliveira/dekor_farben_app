@@ -1,6 +1,7 @@
 import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/core/entities/product.dart';
 import 'package:dekor_farben_app/global/constants.dart';
+import 'package:dekor_farben_app/global/rollback_screen_widget.dart';
 import 'package:dekor_farben_app/screens/campaigns_screen/components/widgets/campaign_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +11,12 @@ class CampaignsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height,
-      width: size.width,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: kDefaultPadding * 2, vertical: kDefaultPadding * 2),
+      child: SizedBox(
+        height: size.height,
+        width: size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,9 +27,17 @@ class CampaignsBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    "Campanhas",
-                    style: Theme.of(context).textTheme.titleLarge,
+                  Row(
+                    children: [
+                      RollbackScreenWidget(
+                        onExec: () => Navigator.pop(context),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Campanhas",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ],
                   ),
                   Text(
                     "Nesta tela você poderá ver as campanhas que a empresa está disponibilizando.",

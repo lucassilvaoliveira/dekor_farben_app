@@ -1,5 +1,6 @@
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/campaigns_screen/campaigns_screen.dart';
+import 'package:dekor_farben_app/screens/settings/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -80,23 +81,31 @@ class CustomDrawerWidget extends StatelessWidget {
           ),
           Column(
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.settings,
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Settings',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(color: Colors.white),
-                  ),
-                ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const SettingsScreen()));
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Settings',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 10,

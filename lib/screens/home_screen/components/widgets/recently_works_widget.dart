@@ -1,3 +1,4 @@
+import 'package:dekor_farben_app/global/constants.dart';
 import 'package:flutter/material.dart';
 
 class RecentlyWorksWidget extends StatelessWidget {
@@ -11,7 +12,7 @@ class RecentlyWorksWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height * .5,
+      height: userType == "admin" ? size.height * .6 : size.height * .5,
       width: size.width,
       child: PageView.builder(
         scrollDirection: Axis.horizontal,
@@ -24,22 +25,17 @@ class RecentlyWorksWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Kaliel Eduard Rosa",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(
-                      "13/05/2023",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "13/05/2023",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 height: size.height * .4,
                 width: size.width,
                 decoration: const BoxDecoration(
@@ -48,7 +44,15 @@ class RecentlyWorksWidget extends StatelessWidget {
                     Radius.circular(16),
                   ),
                 ),
-              )
+              ),
+              if (userType == "admin")
+                Center(
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                    size: size.width * .1,
+                  ),
+                )
             ],
           ),
         ),

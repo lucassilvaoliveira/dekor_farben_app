@@ -40,10 +40,8 @@ class CampaignWidget extends StatelessWidget {
                 children: [
                   Text(
                     campaign.campaignName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(color: Colors.black),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Colors.black, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     campaign.campaignIsOpen ? "Aberta" : "Fechada",
@@ -54,14 +52,23 @@ class CampaignWidget extends StatelessWidget {
                 campaign.campaignDescription,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      "Criada em: ${convertDateTimeToShowOnScreen(campaign.createdAt, 'dd/MM/yyyy')}"),
+                      "Criada em: ${convertDateTimeToShowOnScreen(campaign.createdAt, 'dd/MM/yyyy')}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 15)),
                   Text(
-                      "Termina em: ${convertDateTimeToShowOnScreen(campaign.campaignEndDate, 'dd/MM/yyyy')}"),
+                      "Termina em: ${convertDateTimeToShowOnScreen(campaign.campaignEndDate, 'dd/MM/yyyy')}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 15)),
                 ],
               ),
               const SizedBox(height: 8),

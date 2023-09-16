@@ -1,16 +1,15 @@
 import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/screens/home_screen/components/widgets/points_markup_widget.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/recently_works_widget.dart';
 import 'package:flutter/material.dart';
 
-class ScreenContent extends StatefulWidget {
-  const ScreenContent({super.key});
+class AdminScreenContent extends StatefulWidget {
+  const AdminScreenContent({super.key});
 
   @override
-  State<ScreenContent> createState() => _ScreenContentState();
+  State<AdminScreenContent> createState() => _AdminScreenContentState();
 }
 
-class _ScreenContentState extends State<ScreenContent> {
+class _AdminScreenContentState extends State<AdminScreenContent> {
   double containerRadiusWhenDrawerOpen = 0;
   double xOffset = 0;
   double yOffset = 0;
@@ -51,9 +50,7 @@ class _ScreenContentState extends State<ScreenContent> {
                 SizedBox(
                   width: size.width * .7,
                   child: Text(
-                    'Olá, Lucas!',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                    "Decor Coins - Blumenau Centro",
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -84,48 +81,34 @@ class _ScreenContentState extends State<ScreenContent> {
                 ),
               ],
             ),
-            SizedBox(
-              height: size.height * .20,
-              width: size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Esta é a empresa Decor coins",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 10),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '500 Decor coins ',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        WidgetSpan(
-                          child: Icon(
-                            Icons.star,
-                            color: kDefaultPrimaryGradient.first,
-                          ),
-                        )
-                      ],
+            SizedBox(height: size.height * .1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Trabalhos recentes",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontSize: 25),
+                ),
+                GestureDetector(
+                  child: Container(
+                    height: size.height * .1,
+                    width: size.width * .1,
+                    decoration: BoxDecoration(
+                      color: kDefaultPrimaryGradient[0],
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.add, color: Colors.white),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  const PointsMarkupWidget()
-                ],
-              ),
+                )
+              ],
             ),
             const SizedBox(height: 16),
-            Text(
-              "Trabalhos recentes",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: 25),
-            ),
-            const SizedBox(height: 16),
-            RecentlyWorksWidget(size: size)
+            RecentlyWorksWidget(size: size),
           ],
         ),
       ),
