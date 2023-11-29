@@ -1,16 +1,57 @@
-import 'package:dekor_farben_app/global/constants.dart';
 import 'package:flutter/material.dart';
 
-class SettingsOptionsWidget extends StatelessWidget {
-  const SettingsOptionsWidget({
-    super.key,
-    required this.size,
-  });
+class SettingsOptionsWidget extends StatefulWidget {
+  const SettingsOptionsWidget({super.key});
 
-  final Size size;
+  @override
+  State<SettingsOptionsWidget> createState() => _SettingsOptionsWidgetState();
+}
+
+class _SettingsOptionsWidgetState extends State<SettingsOptionsWidget> {
+
+  //Edit field
+  Future<void> editField(String field) async {
+    String newValue = "";
+    await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.grey[900],
+          title: Text('Edite $field'),
+          content: TextField(
+            autofocus: true,
+            style: const TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+              hintText: "Informe o novo $field",
+              hintStyle: const TextStyle(color: Colors.grey)
+            ),
+            onChanged: (value) {
+              newValue = value;
+            },
+          ),
+          actions: [
+             TextButton(
+                 onPressed: () => Navigator.pop(context),
+                 child: const Text(
+                   'Cancelar',
+                   style: TextStyle(color: Colors.white),
+                 )
+             ),
+            TextButton(
+                onPressed: () => Navigator.of(context).pop(newValue),
+                child: const Text(
+                  'Salvar',
+                  style: TextStyle(color: Colors.white),
+                )
+            )
+          ],
+        )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         Container(
@@ -20,17 +61,16 @@ class SettingsOptionsWidget extends StatelessWidget {
           child: ListView.separated(
             separatorBuilder: (context, index) => const SizedBox(height: 0),
             itemCount: settingsOptionsData.length,
-            itemBuilder: (context, index) => SizedBox(
-              width: size.width,
-              child: TextBox(
-                  iconProp: settingsOptionsData[index]["iconProp"],
-                  text: settingsOptionsData[index]["userName"],
-                  sectionName: settingsOptionsData[index]["nameProp"],
-                  onPressed: () {
-                    print('Hello World');
-                  }
-              ),
-            ),
+            itemBuilder: (context, index) =>
+                SizedBox(
+                  width: size.width,
+                  child: TextBox(
+                      iconProp: settingsOptionsData[index]["iconProp"],
+                      text: settingsOptionsData[index]["userName"],
+                      sectionName: settingsOptionsData[index]["nameProp"],
+                      onPressed: () => editField(settingsOptionsData[index]["nameProp"])
+                  ),
+                ),
           ),
         ),
       ],

@@ -1,11 +1,10 @@
 import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/screens/choose_company_screen/choose_company_screen.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/drawer_widget/company_custom_drawer_widget.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/drawer_widget/user_custom_drawer_widget.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/onboarding_screen.dart';
-import 'package:dekor_farben_app/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../settings_screen/settings_screen.dart';
 import 'menu_icon_widget.dart';
 
 class CustomDrawerWidget extends StatelessWidget {

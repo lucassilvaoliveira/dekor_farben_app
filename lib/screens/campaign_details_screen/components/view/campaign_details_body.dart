@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/core/entities/product.dart';
 import 'package:dekor_farben_app/global/constants.dart';
+import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
 import 'package:dekor_farben_app/global/widgets/primary_select_option_button_widget.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_indicator_widget.dart';
 import 'package:dekor_farben_app/screens/product_details_screen.dart/components/widgets/product_widget.dart';
@@ -128,24 +129,7 @@ class _CampaignDetailsBodySate extends State<CampaignDetailsBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       PrimarySelectOptionButtonWidget(widgetColor: kDefaultPrimaryColor, text: 'Enviar nota fiscal', isOpacity: _image == null),
-                      GestureDetector(
-                        onTap: () async {
-                          var source = ImageSource.gallery;
-                          XFile? image = await _imagePicker.pickImage(
-                              source: source,
-                              imageQuality: 50
-                          );
-
-                          setState(() {
-                            _image = File(image!.path);
-                          });
-                        },
-                        child: const Icon(
-                          Icons.camera_alt_rounded,
-                          size: 50,
-                          color: kDefaultPrimaryColor,
-                        ),
-                      )
+                      CameraWidget(image: _image, height: 50, width: 50)
                     ],
                   ),
                   const SizedBox(height: 40)
