@@ -23,7 +23,7 @@ class CompanyWidget extends StatelessWidget {
         color: Colors.transparent,
         padding:
             const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        height: size.height * .20,
+        height: size.height * .14,
         width: size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -21,3 +21,9 @@ ThemeData themeData() => ThemeData(
     ),
   )
 );
+
+TextStyle kDefaultPrimaryTitle = const TextStyle(
+    fontFamily: 'Chivo',
+    fontSize: 28,
+    fontWeight: FontWeight.bold
+);

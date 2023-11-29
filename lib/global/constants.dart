@@ -6,14 +6,11 @@ const uuid = Uuid();
 
 const kDefaultScaffoldColor = Color(0xFFEFEFEF);
 const kDefaultContainerColor = Color(0xFFD6D6D6);
-const kDefaultTitleColor = Color(0xFF000000);
+const kDefaultTitleColor = Color(0xFF333333);
 const kDefaultSubtitleColor = Color(0xFF969696);
+const kDefaultTextFieldColor = Color(0xFF595959);
+const kDefaultPrimaryColor = Color(0xFF444CE7);
 
-const kDefaultPadding = 8.0;
-
-const kDefaultPrimaryGradient = [
-  Color(0xFF39A7FF),
-  Color(0xFF5CC4FF),
-];
+const kDefaultPadding = 10.0;
 
 const userType = "user";

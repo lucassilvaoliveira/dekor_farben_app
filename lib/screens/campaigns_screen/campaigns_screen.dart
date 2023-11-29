@@ -10,4 +10,4 @@ class CampaignsScreen extends StatelessWidget {
       body: CampaignsBody(),
     );
   }
-}
+} 

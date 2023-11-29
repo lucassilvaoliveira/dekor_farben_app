@@ -9,13 +9,13 @@ class RollbackScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GestureDetector(     
       onTap: onExec,
       child: Container(
-        height: 25,
-        width: 25,
-        color: Colors.transparent,
-        child: const Icon(Icons.arrow_back_ios),
+        alignment: Alignment.center,
+        height: 35,
+        width: 35,
+        child: const Icon(Icons.arrow_back, size: 35),
       ),
     );
   }

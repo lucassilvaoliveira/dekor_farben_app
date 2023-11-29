@@ -1,8 +1,9 @@
 import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/global/rollback_screen_widget.dart';
 import 'package:dekor_farben_app/screens/settings/components/widgets/profile_pic_widget.dart';
 import 'package:dekor_farben_app/screens/settings/components/widgets/settings_options_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../global/widgets/rollback_screen_widget.dart';
 
 class SettingsBody extends StatelessWidget {
   const SettingsBody({super.key});
@@ -12,9 +13,8 @@ class SettingsBody extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: kDefaultPadding * 2, vertical: kDefaultPadding * 2),
+          horizontal: kDefaultPadding * 2, vertical: kDefaultPadding * 4),
       child: SizedBox(
-        height: size.height,
         width: size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +43,6 @@ class SettingsBody extends StatelessWidget {
             ),
             SizedBox(height: size.height * .02),
             SizedBox(
-              height: size.height * .75,
               width: size.width,
               child: Column(
                 children: [

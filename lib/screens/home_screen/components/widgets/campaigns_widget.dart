@@ -2,69 +2,61 @@ import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/core/entities/product.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/campaigns_screen/components/widgets/campaign_widget.dart';
+import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../global/widgets/rollback_screen_widget.dart';
+class CampaignsWidget extends StatelessWidget {
+  CampaignsWidget({
+    super.key,
+    required this.size,
+  });
 
-class CampaignsBody extends StatelessWidget {
-  const CampaignsBody({super.key});
+  final Size size;
+  final _controller = PageController();
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: kDefaultPadding * 2, vertical: kDefaultPadding * 2),
-      child: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: size.height * .3,
-                width: size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        RollbackScreenWidget(
-                          onExec: () => Navigator.pop(context),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          "Campanhas",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "Nesta tela você poderá ver as campanhas que a empresa está disponibilizando.",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height * .7,
-                width: size.width,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 10),
-                  itemCount: campaings.length,
-                  itemBuilder: (_, index) => CampaignWidget(
-                    size: size,
-                    campaign: campaings[index],
-                  ),
-                ),
+    return Column(
+      children: [
+        Container(
+          height: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Campanhas",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+          height: 280,
+          width: size.width,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 6,
+                offset: const Offset(2, 6), // changes position of shadow
               ),
             ],
           ),
+          child: PageView.builder(
+            itemCount: campaings.length,
+            scrollDirection: Axis.horizontal,
+            controller: _controller,
+            itemBuilder: (_, index) => CampaignWidget(
+              size: size,
+              campaign: campaings[index],
+            ),
+          ),
         ),
-      ),
+        const SizedBox(
+          height: 20,
+        ),
+        PageIndicatorWidget(controller: _controller, count: campaings.length)
+      ],
     );
   }
 }
@@ -105,7 +97,7 @@ List<Campaign> campaings = [
     campaignName: "Setembro amarelo",
     campaignDescription:
         "Na compra de RS 10,000 em borracha líquida ganhe 1000 decor coins!",
-    campaignReward: 0,
+    campaignReward: 1500,
     campaignInitialDate: DateTime.now(),
     campaignEndDate: DateTime.now(),
     campaignIsOpen: true,
@@ -133,8 +125,8 @@ List<Campaign> campaings = [
     ),
     campaignName: "Outubro Rosa",
     campaignDescription:
-        "Na compra de RS 10,000 em borracha líquida ganhe 1000 decor coins!",
-    campaignReward: 0,
+        "Na compra de RS 20,000 em borracha líquida ganhe 1000 decor coins!",
+    campaignReward: 8000,
     campaignInitialDate: DateTime.now(),
     campaignEndDate: DateTime.now(),
     campaignIsOpen: false,
@@ -148,8 +140,8 @@ List<Campaign> campaings = [
     products: [],
     campaignName: "Novembro Azul",
     campaignDescription:
-        "Na compra de RS 10,000 em borracha líquida ganhe 1000 decor coins!",
-    campaignReward: 0,
+        "Na compra de RS 30,000 em borracha líquida ganhe 1000 decor coins!",
+    campaignReward: 10000,
     campaignInitialDate: DateTime.now(),
     campaignEndDate: DateTime.now(),
     campaignIsOpen: true,

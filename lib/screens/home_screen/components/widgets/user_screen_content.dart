@@ -1,7 +1,9 @@
 import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/screens/home_screen/components/widgets/points_markup_widget.dart';
+import 'package:dekor_farben_app/screens/home_screen/components/widgets/coins_amount_widget.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/recently_works_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'campaigns_widget.dart';
 
 class UserScreenContent extends StatefulWidget {
   const UserScreenContent({super.key});
@@ -45,6 +47,7 @@ class _UserScreenContentState extends State<UserScreenContent> {
         duration: const Duration(milliseconds: 300),
         child: Column(
           children: [
+            SizedBox(height: size.height * .05),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -62,7 +65,7 @@ class _UserScreenContentState extends State<UserScreenContent> {
                                 .titleLarge
                                 ?.copyWith(fontSize: 25)),
                         TextSpan(
-                          text: "Lucas!",
+                          text: "Kaliel!",
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontSize: 25,
@@ -89,56 +92,72 @@ class _UserScreenContentState extends State<UserScreenContent> {
                         drawerIsOpen = true;
                       });
                     },
-                    icon: Icon(
-                      Icons.menu,
-                      size: iconSize,
-                    ),
+                    icon: Icon(Icons.menu,
+                        size: iconSize, color: kDefaultPrimaryColor),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: size.height * .20,
+              height: size.height * .16,
               width: size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Esta é a empresa Decor coins",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 10),
                   RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '500 Decor coins ',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        WidgetSpan(
-                          child: Icon(
-                            Icons.star,
-                            color: kDefaultPrimaryGradient.first,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const PointsMarkupWidget()
+                      text: TextSpan(children: [
+                    TextSpan(
+                        text: 'Está é a empresa ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 18)),
+                    TextSpan(
+                        text: 'Decor Colors - Blumenau Centro',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontSize: 18, fontWeight: FontWeight.bold))
+                  ])),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  const CoinsAmountWidget(amount: 500),
                 ],
               ),
             ),
-            const SizedBox(height: 16),
-            Text(
-              "Trabalhos recentes",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: 25),
-            ),
-            const SizedBox(height: 16),
-            RecentlyWorksWidget(size: size)
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Campanhas",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  CampaignsWidget(size: size),
+                  const SizedBox(height: 50),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Trabalhos recentes",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  RecentlyWorksWidget(size: size)
+                ],
+              ),
+            )
           ],
         ),
       ),

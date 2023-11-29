@@ -183,7 +183,7 @@ class PointsMarkupWidget extends StatelessWidget {
               width: 17,
               height: 16,
               decoration: const ShapeDecoration(
-                gradient: LinearGradient(colors: kDefaultPrimaryGradient),
+                color: kDefaultPrimaryColor,
                 shape: OvalBorder(
                   side: BorderSide(width: 0.50, color: Color(0xFF838383)),
                 ),

@@ -11,58 +11,29 @@ class SettingsOptionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding * 2),
-      margin: EdgeInsets.only(top: size.height * .02),
-      height: size.height * .5,
-      width: size.width,
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(height: 10),
-        itemCount: settingsOptionsData.length,
-        itemBuilder: (context, index) => Container(
-          padding: const EdgeInsets.symmetric(
-              vertical: kDefaultPadding, horizontal: kDefaultPadding),
-          height: size.height * .08,
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: size.height * .02),
+          height: size.height * .55,
           width: size.width,
-          child: Row(
-            children: [
-              Icon(settingsOptionsData[index]["iconProp"]),
-              SizedBox(width: size.width * .1),
-              SizedBox(
-                width: size.width * .5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      settingsOptionsData[index]["nameProp"],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      settingsOptionsData[index]["userName"],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(color: Colors.black, fontSize: 12),
-                    ),
-                  ],
-                ),
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 0),
+            itemCount: settingsOptionsData.length,
+            itemBuilder: (context, index) => SizedBox(
+              width: size.width,
+              child: TextBox(
+                  iconProp: settingsOptionsData[index]["iconProp"],
+                  text: settingsOptionsData[index]["userName"],
+                  sectionName: settingsOptionsData[index]["nameProp"],
+                  onPressed: () {
+                    print('Hello World');
+                  }
               ),
-              const Spacer(),
-              Icon(
-                Icons.edit,
-                color: kDefaultPrimaryGradient[0],
-              )
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -86,3 +57,63 @@ List<Map<String, dynamic>> settingsOptionsData = [
     "userName": "24/09/2003"
   },
 ];
+
+class TextBox extends StatelessWidget {
+
+  final IconData iconProp;
+  final String text;
+  final String sectionName;
+  final void Function()? onPressed;
+
+  const TextBox({
+    super.key,
+    required this.iconProp,
+    required this.text,
+    required this.sectionName,
+    required this.onPressed
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 0,
+          blurRadius: 6,
+          offset: const Offset(0, 2), // changes position of shadow
+        ),
+      ], borderRadius: BorderRadius.circular(8), color: Colors.white),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 25),
+      child: Row(
+        children: [
+          Icon(
+            iconProp,
+            size: 30,
+            color: Colors.grey[700],
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  sectionName,
+                  style: TextStyle(color: Colors.grey[500]),
+                ),
+                const SizedBox(height: 10),
+                Text(text)
+              ],
+            ),
+          ),
+          const Spacer(),
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios, color: Colors.grey[400]),
+            onPressed: onPressed,
+          ),
+        ],
+      ),
+    );
+  }
+}

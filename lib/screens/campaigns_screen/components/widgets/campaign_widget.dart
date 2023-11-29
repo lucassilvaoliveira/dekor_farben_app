@@ -1,6 +1,8 @@
 import 'package:dekor_farben_app/core/entities/campaign.dart';
-import 'package:dekor_farben_app/helpers/date_time_utils.dart';
+import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/campaign_details_screen/campaign_details_screen.dart';
+import 'package:dekor_farben_app/screens/campaign_registration_screen/campaign_registration_screen.dart';
+import 'package:dekor_farben_app/screens/home_screen/components/widgets/coins_amount_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,65 +22,63 @@ class CampaignWidget extends StatelessWidget {
         Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => CampaignDetailsScreen(
+            builder: (context) => userType == 'user' ?
+            CampaignDetailsScreen(
               campaign: campaign,
-            ),
+            ) : const CampaignRegistrationScreen(),
           ),
         );
       },
-      child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          height: size.height * .25,
-          width: size.width,
-          color: Colors.transparent,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    campaign.campaignName,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    campaign.campaignIsOpen ? "Aberta" : "Fechada",
-                  ),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              campaign.campaignName,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            CoinsAmountWidget(amount: campaign.campaignReward),
+            const SizedBox(height: 10),
+            Text(
+              campaign.campaignDescription,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontSize: 18),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: size.height * .07),
+              child: Text(
+                "Criada em: 01/09/2023",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 18),
               ),
-              Text(
-                campaign.campaignDescription,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      "Criada em: ${convertDateTimeToShowOnScreen(campaign.createdAt, 'dd/MM/yyyy')}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontSize: 15)),
-                  Text(
-                      "Termina em: ${convertDateTimeToShowOnScreen(campaign.campaignEndDate, 'dd/MM/yyyy')}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontSize: 15)),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Container(
-                height: 2,
-                width: size.width,
-                color: Colors.black.withOpacity(.3),
-              )
-            ],
-          )),
+            ),
+            RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                  text: 'Acaba em: ',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontSize: 18)),
+              TextSpan(
+                  text: '30/09/2023',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontSize: 18, fontWeight: FontWeight.bold))
+            ])),
+          ],
+        ),
+      ),
     );
   }
 }
