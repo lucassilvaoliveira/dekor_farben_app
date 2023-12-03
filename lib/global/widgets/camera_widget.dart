@@ -34,7 +34,9 @@ class _CameraWidgetState extends State<CameraWidget> {
         );
 
         setState(() {
-          widget.image = File(image!.path);
+          if (image != null) {
+            widget.image = File(image!.path);
+          }
         });
       },
       child: ClipOval(

@@ -2,7 +2,6 @@ import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../global/widgets/rollback_screen_widget.dart';
 import '../widgets/profile_pic_widget.dart';
 import '../widgets/settings_options_widget.dart';
 
