@@ -114,10 +114,31 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       alignment: Alignment.topLeft,
-                      child: Text(
-                        "Trabalhos recentes",
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontSize: 28, fontWeight: FontWeight.bold),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Trabalhos recentes",
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 10),
+                            child: GestureDetector(
+                              child: ClipOval(
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: kDefaultPrimaryColor,
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                     const SizedBox(height: 16),

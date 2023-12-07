@@ -1,18 +1,21 @@
-import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/global/widgets/primary_select_option_button_widget.dart';
+import 'package:dekor_farben_app/screens/product_registration_screen/product_registration_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../global/constants.dart';
 import '../../../../global/widgets/app_bar_widget.dart';
+import '../../../../global/widgets/primary_select_option_button_widget.dart';
 import '../../../../global/widgets/text_box_widget.dart';
 
-class CampaignRegistrationBody extends StatefulWidget {
-  const CampaignRegistrationBody({super.key});
+class CampaignEditBody extends StatefulWidget {
+  const CampaignEditBody({super.key});
 
   @override
-  State<CampaignRegistrationBody> createState() => _CampaignRegistrationBodyState();
+  State<CampaignEditBody> createState() => _CampaignEditBodyState();
 }
 
-class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
+class _CampaignEditBodyState extends State<CampaignEditBody> {
+
   @override
   Widget build(BuildContext context) {
     Future<void> editField(String field) async {
@@ -60,9 +63,9 @@ class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const AppBarWidget(title: 'Cadastro da campanha'),
+            const AppBarWidget(title: 'Campanha'),
             SizedBox(
-                height: size.height * .7,
+                height: size.height * .65,
                 width: size.width,
                 child: ListView.separated(
                   separatorBuilder: (context, index) => const SizedBox(height: 0),
@@ -79,10 +82,29 @@ class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
                       ),
                 )
             ),
-            const PrimarySelectOptionButtonWidget(
-                text: 'Salvar',
-                isOpacity: false,
-                widgetColor: kDefaultPrimaryColor)
+            const SizedBox(height: 20),
+            SizedBox(
+              width: size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        child: const PrimarySelectOptionButtonWidget(widgetColor: kDefaultPrimaryColor, text: 'Ver Produtos', isOpacity: false),
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(builder: (context) => const ProductRegistrationScreen()),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const PrimarySelectOptionButtonWidget(widgetColor: Colors.red, text: 'Excluir', isOpacity: false)
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -90,30 +112,32 @@ class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
   }
 }
 
+
 List<Map<String, dynamic>> settingsOptionsData = [
   {
     "icon": Icons.star,
     "fieldName": "Decor coins",
-    "value": ""
+    "value": "1500"
   },
   {
     "icon": Icons.pending_actions,
     "fieldName": "Nome da campanha",
-    "value": ""
+    "value": "Campanha setembro amarelo"
   },
   {
     "icon": Icons.calendar_month,
     "fieldName": "Data de início",
-    "value": ""
+    "value": "25/02/2024"
   },
   {
     "icon": Icons.calendar_month,
     "fieldName": "Data final",
-    "value": ""
+    "value": "15/03/2024"
   },
   {
     "icon": Icons.add,
     "fieldName": "Descrição",
-    "value": ""
+    "value": "Na compra de R\$10,000 em borracha líquida, ganhe 1000 decor coins!"
   },
 ];
+

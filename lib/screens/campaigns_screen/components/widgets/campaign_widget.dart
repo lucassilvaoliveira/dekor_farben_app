@@ -1,7 +1,7 @@
 import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/campaign_details_screen/campaign_details_screen.dart';
-import 'package:dekor_farben_app/screens/campaign_registration_screen/campaign_registration_screen.dart';
+import 'package:dekor_farben_app/screens/campaign_edit_screen/campaign_edit_screen.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/coins_amount_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class CampaignWidget extends StatelessWidget {
             builder: (context) => userType == 'user' ?
             CampaignDetailsScreen(
               campaign: campaign,
-            ) : const CampaignRegistrationScreen(),
+            ) : const CampaignEditScreen(),
           ),
         );
       },

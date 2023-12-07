@@ -1,3 +1,5 @@
+import 'package:dekor_farben_app/screens/invoice_screen/components/view/invoice_screen_body.dart';
+import 'package:dekor_farben_app/screens/invoice_screen/invoice_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../choose_company_screen/choose_company_screen.dart';
@@ -13,7 +15,11 @@ class CompanyCustomDrawerWidget extends StatelessWidget {
         MenuIconWidget(
             destinationWidget: ChooseCompanyScreen(),
             widgetIcon: Icons.attach_money,
-            widgetText: 'Campanhas')
+            widgetText: 'Campanhas'),
+        MenuIconWidget(
+            destinationWidget: InvoiceScreen(),
+            widgetIcon: Icons.attach_file,
+            widgetText: 'Notas Fiscais')
       ],
     );
   }

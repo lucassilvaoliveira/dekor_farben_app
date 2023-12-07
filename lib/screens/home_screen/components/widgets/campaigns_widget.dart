@@ -3,7 +3,10 @@ import 'package:dekor_farben_app/core/entities/product.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/campaigns_screen/components/widgets/campaign_widget.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_indicator_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../campaign_registration_screen/campaign_registration_screen.dart';
 
 class CampaignsWidget extends StatelessWidget {
   CampaignsWidget({
@@ -22,10 +25,33 @@ class CampaignsWidget extends StatelessWidget {
           height: 50,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           alignment: Alignment.topLeft,
-          child: Text(
-            "Campanhas",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontSize: 28, fontWeight: FontWeight.bold),
+          child: Row(
+            children: [
+              Text(
+                "Campanhas",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: GestureDetector(
+                  onTap: () => Navigator.push(context, CupertinoPageRoute(
+                      builder: (context) => const CampaignRegistrationScreen())),
+                  child: ClipOval(
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      color: kDefaultPrimaryColor,
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
         Container(
