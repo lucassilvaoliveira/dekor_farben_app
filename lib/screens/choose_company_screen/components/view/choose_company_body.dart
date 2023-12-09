@@ -1,10 +1,28 @@
-import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/global/texts.dart';
-import 'package:dekor_farben_app/screens/choose_company_screen/components/widgets/company_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChooseCompanyBody extends StatelessWidget {
-  const ChooseCompanyBody({Key? key}) : super(key: key);
+import '../../../../global/constants.dart';
+import '../../../home_screen/home_screeen.dart';
+
+class ChooseCompanyBody extends StatefulWidget {
+  const ChooseCompanyBody({super.key});
+
+  @override
+  State<ChooseCompanyBody> createState() => _ChooseCompanyBodyState();
+}
+
+class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
+  List<Map<String, dynamic>> displayList = List.from(settingsOptionsData);
+
+  void updateList(String value) {
+    String searchQuery = value.toLowerCase();
+
+    setState(() {
+      displayList = settingsOptionsData.where((option) {
+        return option['name'].toLowerCase().contains(searchQuery);
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +49,33 @@ class ChooseCompanyBody extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                margin: const EdgeInsets.only(top: 155, right: 15),
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.grey,
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        offset: Offset(1, 1) // changes position of shadow
-                        ),
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(1, 1), // changes position of shadow
+                    ),
                   ],
                 ),
-                child: IconButton(
-                  icon: const Icon(Icons.search,
-                      size: 25, color: kDefaultPrimaryColor),
-                  onPressed: () {},
-                ),
-              ),
+                margin: const EdgeInsets.only(top: 155),
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  onChanged: (value) => updateList(value),
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      hintText: 'Pesquisar empresa',
+                      prefixIcon: const Icon(Icons.search)
+                  ),
+                )
             ),
           ],
         ),
@@ -61,20 +83,49 @@ class ChooseCompanyBody extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding * 2, vertical: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: size.height * .65,
-                  width: size.width,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 0),
-                    itemCount: 5,
-                    itemBuilder: (_, index) => CompanyWidget(size: size),
-                  ),
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: size.height * .65,
+                    width: size.width,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) =>
+                      const SizedBox(height: 0),
+                      itemCount: displayList.length,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(builder: (context) => const HomeScreen()),
+                                  (route) => false);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          width: size.width,
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                displayList[index]["icon"],
+                                width: size.width * .25,
+                              ),
+                              const SizedBox(height: 15),
+                              Text(displayList[index]["name"]),
+                              const SizedBox(height: 10),
+                              Container(
+                                height: 1,
+                                width: size.width,
+                                color: Colors.black.withOpacity(.3),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -82,3 +133,23 @@ class ChooseCompanyBody extends StatelessWidget {
     );
   }
 }
+
+
+List<Map<String, dynamic>> settingsOptionsData = [
+  {
+    "name": "Decor Colors - Blumenau Centro",
+    "icon": "assets/images/decor-colors-logo.png",
+  },
+  {
+    "name": "Spotify",
+    "icon": "assets/images/spotify-logo.png",
+  },
+  {
+    "name": "Github",
+    "icon": "assets/images/github-logo.png",
+  },
+  {
+    "name": "Airbnb",
+    "icon": "assets/images/airbnb-logo.png",
+  },
+];

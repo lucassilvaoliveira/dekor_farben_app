@@ -13,10 +13,6 @@ class CompanyCustomDrawerWidget extends StatelessWidget {
     return const Column(
       children: [
         MenuIconWidget(
-            destinationWidget: ChooseCompanyScreen(),
-            widgetIcon: Icons.attach_money,
-            widgetText: 'Campanhas'),
-        MenuIconWidget(
             destinationWidget: InvoiceScreen(),
             widgetIcon: Icons.attach_file,
             widgetText: 'Notas Fiscais')

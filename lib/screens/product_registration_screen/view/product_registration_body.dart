@@ -1,3 +1,4 @@
+import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,29 @@ class _ProductRegistrationBodyState extends State<ProductRegistrationBody> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    Future openDialog() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Novo Produto'),
+        content: SizedBox(
+          height: size.height * .2,
+          child: Column(
+            children: [
+              const TextField(
+                decoration: InputDecoration(hintText: 'Nome'),
+              ),
+              const SizedBox(height: 20),
+              CameraWidget(height: 40, width: 40)
+            ],
+          ),
+        ),
+
+        actions: [
+          TextButton(onPressed: () {}, child: const Text('Salvar'))
+        ],
+      ),
+    );
 
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
@@ -107,6 +131,7 @@ class _ProductRegistrationBodyState extends State<ProductRegistrationBody> {
                   ),
                 ),
               ),
+              onTap: () => openDialog(),
             )
           ]),
         ));

@@ -154,7 +154,7 @@ class _UserScreenContentState extends State<UserScreenContent> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  RecentlyWorksWidget(size: size)
+                  const RecentlyWorksWidget()
                 ],
               ),
             )

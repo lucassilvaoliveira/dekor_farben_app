@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../global/constants.dart';
 import '../widgets/campaigns_widget.dart';
-import '../widgets/coins_amount_widget.dart';
 import '../widgets/drawer_widget/custom_drawer_widget.dart';
 import '../widgets/recently_works_widget.dart';
 
@@ -111,38 +110,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   children: [
                     CampaignsWidget(size: size),
                     const SizedBox(height: 50),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      alignment: Alignment.topLeft,
-                      child: Row(
-                        children: [
-                          Text(
-                            "Trabalhos recentes",
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontSize: 28, fontWeight: FontWeight.bold),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 10),
-                            child: GestureDetector(
-                              child: ClipOval(
-                                child: Container(
-                                  width: 30,
-                                  height: 30,
-                                  color: kDefaultPrimaryColor,
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    RecentlyWorksWidget(size: size)
+                    const RecentlyWorksWidget()
                   ],
                 ),
               )

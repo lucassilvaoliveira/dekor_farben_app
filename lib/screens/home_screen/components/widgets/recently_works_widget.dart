@@ -1,20 +1,82 @@
-import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
-class RecentlyWorksWidget extends StatelessWidget {
-  RecentlyWorksWidget({
-    super.key,
-    required this.size,
-  });
+import '../../../../global/constants.dart';
+import '../../../../global/widgets/camera_widget.dart';
 
-  final Size size;
+class RecentlyWorksWidget extends StatefulWidget {
+  const RecentlyWorksWidget({super.key});
+
+  @override
+  State<RecentlyWorksWidget> createState() => _RecentlyWorksWidgetState();
+}
+
+class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
+
   final _controller = PageController();
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    Future openDialog() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Novo trabalho recente'),
+        content: SizedBox(
+          height: size.height * .2,
+          child: Column(
+            children: [
+              const TextField(
+                decoration: InputDecoration(hintText: 'Data'),
+              ),
+              const SizedBox(height: 20),
+              CameraWidget(height: 40, width: 40)
+            ],
+          ),
+        ),
+
+        actions: [
+          TextButton(onPressed: () {}, child: const Text('Salvar'))
+        ],
+      ),
+    );
+
+
     return Column(
       children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          alignment: Alignment.topLeft,
+          child: Row(
+            children: [
+              Text(
+                "Trabalhos recentes",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: GestureDetector(
+                  child: ClipOval(
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      color: kDefaultPrimaryColor,
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  onTap: () => openDialog(),
+                ),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
         SizedBox(
             height: userType == "admin" ? size.height * .6 : size.height * .48,
             width: size.width,
