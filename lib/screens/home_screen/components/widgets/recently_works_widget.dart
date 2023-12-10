@@ -55,7 +55,7 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: 28, fontWeight: FontWeight.bold),
               ),
-              Container(
+              userType == 'company' ? Container(
                 margin: const EdgeInsets.only(left: 10),
                 child: GestureDetector(
                   child: ClipOval(
@@ -72,7 +72,7 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
                   ),
                   onTap: () => openDialog(),
                 ),
-              )
+              ) : const SizedBox()
             ],
           ),
         ),

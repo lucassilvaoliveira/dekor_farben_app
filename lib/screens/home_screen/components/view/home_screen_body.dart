@@ -25,7 +25,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Stack(children: [
-      const CustomDrawerWidget(entityName: 'Lucas Silva'),
+      const CustomDrawerWidget(entityName: 'Kaliel'),
       GestureDetector(
         onTap: () {
           if (drawerIsOpen) {
@@ -67,7 +67,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                   .textTheme
                                   .titleLarge
                                   ?.copyWith(fontSize: 25)),
-                          TextSpan(
+                          userType == "company" ? TextSpan(
                             text: "Decor Colors - Blumenau Centro",
                             style: Theme.of(context)
                                 .textTheme
@@ -76,7 +76,16 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                   fontSize: 25,
                                   fontWeight: FontWeight.w600,
                                 ),
-                          ),
+                          ) : TextSpan(
+                            text: "Kaliel",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
                         ],
                       ),
                     ),

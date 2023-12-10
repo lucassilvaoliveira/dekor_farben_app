@@ -80,7 +80,7 @@ class _SettingsOptionsWidgetState extends State<SettingsOptionsWidget> {
 }
 
 List<Map<String, dynamic>> settingsOptionsData = [
-  {"iconProp": Icons.person, "nameProp": "Name", "userName": "Polooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"},
+  {"iconProp": Icons.person, "nameProp": "Name", "userName": "Lucas"},
   {
     "iconProp": Icons.email,
     "nameProp": "Email",

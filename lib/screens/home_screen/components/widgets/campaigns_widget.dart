@@ -32,7 +32,7 @@ class CampaignsWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: 28, fontWeight: FontWeight.bold),
               ),
-              Container(
+              userType == 'company' ? Container(
                 margin: const EdgeInsets.only(left: 10),
                 child: GestureDetector(
                   onTap: () => Navigator.push(context, CupertinoPageRoute(
@@ -50,7 +50,7 @@ class CampaignsWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ) : const SizedBox()
             ],
           ),
         ),

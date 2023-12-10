@@ -18,7 +18,7 @@ void main() {
       userType: null,
       userEmail: "silvaluxas5@gmail.com",
       userPassword: uuid.v4(),
-      userName: "polo infernal",
+      userName: "Lucas",
       userBirthday: DateTime.now(),
       userCpf: 13665879957,
       userPoints: 500,

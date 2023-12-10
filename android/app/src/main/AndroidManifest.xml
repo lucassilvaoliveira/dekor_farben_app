@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dekor_farben_app">
    <application
-        android:label="dekor_farben_app"
+        android:label="decor_coins_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
