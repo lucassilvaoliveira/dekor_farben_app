@@ -56,10 +56,8 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                     widgetText: 'Configurações'),
                 const SizedBox(height: 10),
                 MenuIconWidget(
-                    onPressed: () async {
-                      await SecureStorage().deleteSecureData("jwt");
-
-                      if (!mounted) return;
+                    onPressed: ()  {
+                      SecureStorage().deleteSecureData("jwt");
 
                       Navigator.push(
                         context,

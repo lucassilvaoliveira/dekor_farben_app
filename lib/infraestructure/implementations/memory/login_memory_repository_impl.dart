@@ -6,6 +6,7 @@ import 'package:dekor_farben_app/infraestructure/contracts/i_login_repository.da
 import 'package:multiple_result/multiple_result.dart';
 
 class LoginMemoryRepositoryImpl implements ILoginRepository {
+
   @override
   Future<Result<DataJsonObject, InfraException>> call({required String email, required String password}) async {
     try {

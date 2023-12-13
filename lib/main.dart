@@ -36,11 +36,13 @@ void main(List<String> args) {
 }
 
 Future<Widget> isAuthenticated() async {
-  if (await SecureStorage().readSecureData("jwt") != null && userType == 'user') {
+  final String jwt = await SecureStorage().readSecureData("jwt");
+
+  if (jwt.isNotEmpty && userType == 'user') {
     return const ChooseCompanyScreen();
   }
 
-  if (await SecureStorage().readSecureData("jwt") != null && userType == 'company') {
+  if (jwt.isNotEmpty && userType == 'company') {
     return const HomeScreen();
   }
 

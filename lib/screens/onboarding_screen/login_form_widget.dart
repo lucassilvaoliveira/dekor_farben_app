@@ -40,7 +40,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     );
 
     if (response.statusCode == 200) {
-      SecureStorage().writeSourceData("jwt", jsonEncode(response.body));
+      SecureStorage().writeSourceData("jwt", jsonDecode(response.body)["token"]);
       return true;
     }
 
