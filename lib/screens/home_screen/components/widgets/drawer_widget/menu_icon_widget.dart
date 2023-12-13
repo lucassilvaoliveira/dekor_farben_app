@@ -6,16 +6,19 @@ class MenuIconWidget extends StatelessWidget {
   final IconData widgetIcon;
   final String widgetText;
 
-  const MenuIconWidget(
+  Function()? onPressed;
+
+  MenuIconWidget(
       { super.key,
         required this.destinationWidget,
         required this.widgetIcon,
-        required this.widgetText});
+        required this.widgetText,
+        this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: onPressed ?? () {
         Navigator.push(
           context,
           CupertinoPageRoute(

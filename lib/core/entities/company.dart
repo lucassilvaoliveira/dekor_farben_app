@@ -17,12 +17,21 @@ class Company {
 
   factory Company.fromApi(Map<String, dynamic> map) {
     return Company(
-      id: map['items']['companyId'] ?? "undefined",
-      companyName: map['items']['companyName'] ?? "undefined",
-      companyImagePath: map['items']['companyImagePath'],
-      companyPassword: map['items']['companyPassword'] ?? "undefined",
-      createdAt: map['items']['createdAt'] != null ? DateTime.parse(map['items']['createdAt']) : DateTime.now(),
-      updatedAt: map['items']['updatedAt'] != null ? DateTime.parse(map['items']['updatedAt']) : DateTime.now(),
+      id: map['id'] ?? "undefined",
+      companyName: map['name'] ?? "undefined",
+      companyImagePath: map['companyImagePath'] ?? "undefined",
+      companyPassword: map['companyPassword'] ?? "undefined",
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : DateTime.now(),
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : DateTime.now(),
     );
+  }
+
+  static List<Company> fromApiList(List<dynamic> jsonList) {
+    return jsonList.map((item) => Company.fromApi(item)).toList();
+  }
+
+  @override
+  String toString() {
+    return 'Company{id: $id, companyName: $companyName, companyImagePath: $companyImagePath, companyPassword: $companyPassword, createdAt: $createdAt, updatedAt: $updatedAt}';
   }
 }

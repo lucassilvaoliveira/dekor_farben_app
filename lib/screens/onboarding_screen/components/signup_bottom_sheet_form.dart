@@ -26,13 +26,13 @@ class SignUpBottomSheetForm extends StatelessWidget {
               Text('Crie sua conta',
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 25),
-              const TextFieldWidget(label: 'Nome', icon: Icons.person),
-              const TextFieldWidget(label: 'Email', icon: Icons.email),
-              const TextFieldWidget(label: 'CPF', icon: Icons.key),
-              const TextFieldWidget(
+              TextFieldWidget(label: 'Nome', icon: Icons.person),
+              TextFieldWidget(label: 'Email', icon: Icons.email),
+              TextFieldWidget(label: 'CPF', icon: Icons.key),
+              TextFieldWidget(
                   label: 'Data de nascimento', icon: Icons.cake),
-              const TextFieldWidget(label: 'Telefone', icon: Icons.email),
-              const TextFieldWidget(
+              TextFieldWidget(label: 'Telefone', icon: Icons.email),
+              TextFieldWidget(
                 label: 'Senha',
                 icon: Icons.lock,
                 hidden: true,

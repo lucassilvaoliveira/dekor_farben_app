@@ -6,8 +6,10 @@ class TextFieldWidget extends StatelessWidget {
   final IconData icon;
   final bool hidden;
 
-  const TextFieldWidget(
-      {Key? key, required this.label, required this.icon, this.hidden = false})
+  TextEditingController? controller;
+
+  TextFieldWidget(
+      {Key? key, required this.label, required this.icon, this.hidden = false, this.controller})
       : super(key: key);
 
   @override
@@ -16,8 +18,8 @@ class TextFieldWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Row(children: [
         Flexible(
-          child: TextField(
-              
+          child: TextFormField(
+              controller: controller,
               cursorColor: Colors.pink.shade400,
               obscureText: hidden,
               autocorrect: !hidden,
