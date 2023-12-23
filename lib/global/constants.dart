@@ -14,5 +14,3 @@ const kDefaultPrimaryColor = Color(0xFF444CE7);
 const kDefaultPadding = 10.0;
 
 const userType = "user";
-
-const baseURL = "http://172.17.144.1:8080";

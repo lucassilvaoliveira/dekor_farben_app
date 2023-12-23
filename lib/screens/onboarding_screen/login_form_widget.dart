@@ -8,8 +8,10 @@ import 'package:dekor_farben_app/screens/choose_company_screen/choose_company_sc
 import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 
+import '../../global/routes/routes.dart';
 import '../../global/widgets/primary_button_widget.dart';
 
 class LoginFormWidget extends StatefulWidget {
@@ -28,7 +30,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   Future<bool> isAuthenticated() async {
     final response = await http.post(
-      Uri.parse("$baseURL/api/auth/login"),
+      Uri.parse(Routes.authenticate),
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
@@ -124,11 +126,75 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Credenciais incorretas"),
-                              actions: [
-                                TextButton(onPressed: () { Navigator.pop(context); }, child: const Text("OK"))
-                              ],
+                            return Dialog(
+                              backgroundColor: Colors.transparent,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                  vertical: 16
+                                ),
+                                margin: const EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff2A303E),
+                                  borderRadius: BorderRadius.circular(12)
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/images/alert_icon.svg",
+                                      width: 72,
+                                    ),
+                                    const SizedBox(
+                                      height: 24,
+                                    ),
+                                    Text(
+                                      'Credenciais Incorretas!',
+                                      style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          fontSize: 25,
+                                          color: const Color(0xffEC5B5B)
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      'Email ou senha incorretos, tente novamente!',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                          color: Colors.white,
+                                          fontSize: 17
+                                      ),
+                                    ),
+                                    const SizedBox(height: 32),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                            onPressed: () => Navigator.pop(context),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color(0xff5BEC84),
+                                              foregroundColor:
+                                                  const Color(0xff2A303E),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 32),
+                                            ),
+                                            child: const Text('OK'))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
                             );
                           },
                         );
