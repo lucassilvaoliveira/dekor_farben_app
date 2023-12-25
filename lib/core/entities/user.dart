@@ -4,6 +4,7 @@ class User {
   String userEmail;
   String userPassword;
   String userName;
+  String telephoneNumber;
   DateTime userBirthday;
   int userCpf;
   int userPoints;
@@ -17,6 +18,7 @@ class User {
     required this.userEmail,
     required this.userPassword,
     required this.userName,
+    required this.telephoneNumber,
     required this.userBirthday,
     required this.userCpf,
     required this.userPoints,
@@ -32,6 +34,7 @@ class User {
       userEmail: map['userEmail'] ?? "undefined",
       userPassword: map['userPassword'] ?? "undefined",
       userName: map['userName'] ?? "undefined",
+      telephoneNumber: map['telephone_number'] ?? "undefined",
       userBirthday: map['userBirthday'] != null ? DateTime.parse(map['userBirthday']) : DateTime.now(),
       userCpf: map['userCpf'] ?? 0,
       userPoints: map['userPoints'] ?? 0,
