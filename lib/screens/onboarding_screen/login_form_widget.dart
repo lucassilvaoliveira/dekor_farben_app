@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:dekor_farben_app/core/entities/company.dart';
-import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/secure_storage.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/choose_company_screen.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
@@ -202,7 +200,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     },
                     child: SizedBox(
                       width: size.width * 0.4,
-                      child: const PrimaryButtonWidget(text: 'Entrar'),
+                      child: PrimaryButtonWidget(text: 'Entrar'),
                     ),
                   )
                 ],

@@ -6,7 +6,7 @@ import 'package:dekor_farben_app/core/usecases/campaign/get_one_campaign_use_cas
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';
 import 'package:dekor_farben_app/helpers/infra_exception.dart';
-import 'package:dekor_farben_app/infraestructure/implementations/memory/campaign_memory_repository_impl.dart';
+import 'package:dekor_farben_app/infrastructure/implementations/memory/campaign_memory_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

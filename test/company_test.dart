@@ -2,7 +2,7 @@ import 'package:dekor_farben_app/core/entities/company.dart';
 import 'package:dekor_farben_app/core/usecases/company/get_company_use_case.dart';
 import 'package:dekor_farben_app/core/usecases/company/get_one_company_use_case.dart';
 import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/infraestructure/implementations/memory/company_memory_repository_impl.dart';
+import 'package:dekor_farben_app/infrastructure/implementations/memory/company_memory_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

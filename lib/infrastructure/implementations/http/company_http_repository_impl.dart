@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:dekor_farben_app/core/entities/campaign.dart';
+import 'package:dekor_farben_app/core/entities/company.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';
 import 'package:dekor_farben_app/helpers/infra_exception.dart';
-import 'package:dekor_farben_app/infraestructure/contracts/i_base_repository.dart';
+import 'package:dekor_farben_app/infrastructure/contracts/i_base_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:multiple_result/multiple_result.dart';
 
-class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
+class CompanyHttpRepositoryImpl implements IBaseRepository<Company> {
   @override
-  Future<Result<List<Campaign>, InfraException>> get() async {
+  Future<Result<List<Company>, InfraException>> get() async {
     try {
       final uri = Uri.parse("http://localhost:8080/api/companies");
 
@@ -17,7 +17,7 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
 
       final List<dynamic> responseMap = jsonDecode(response.body);
 
-      return Success(responseMap.map((e) => Campaign.fromApi(e)).toList());
+      return Success(responseMap.map((e) => Company.fromApi(e)).toList());
     } catch (error) {
       print(error);
       return Error(InfraException(cause: error.toString()));
@@ -25,13 +25,13 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
   }
 
   @override
-  Future<Result<Campaign, InfraException>> getOne({required String? entityId}) {
+  Future<Result<Company, InfraException>> getOne({required String? entityId}) {
     // TODO: implement getOne
     throw UnimplementedError();
   }
 
   @override
-  Future<Result<DataJsonObject, InfraException>> put({required Campaign entity}) {
+  Future<Result<DataJsonObject, InfraException>> put({required Company entity}) {
     // TODO: implement put
     throw UnimplementedError();
   }

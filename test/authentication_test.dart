@@ -1,7 +1,7 @@
 import 'package:dekor_farben_app/core/usecases/authentication/login_use_case.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';
 import 'package:dekor_farben_app/helpers/infra_exception.dart';
-import 'package:dekor_farben_app/infraestructure/implementations/memory/login_memory_repository_impl.dart';
+import 'package:dekor_farben_app/infrastructure/implementations/memory/login_memory_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
