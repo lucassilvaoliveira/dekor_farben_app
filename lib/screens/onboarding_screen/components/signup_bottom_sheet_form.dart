@@ -10,17 +10,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../blocs/user_bloc.dart';
 import '../../../global/widgets/primary_button_widget.dart';
 
-class SignUpBottomSheetForm extends StatelessWidget {
+class SignUpBottomSheetForm extends StatefulWidget {
   final createUserUseCase =
-      CreateUserUseCase(repository: UserHttpRepositoryImpl());
+  CreateUserUseCase(repository: UserHttpRepositoryImpl());
+
   final PageController pageController;
 
   SignUpBottomSheetForm({super.key, required this.pageController});
+
+  @override
+  State<SignUpBottomSheetForm> createState() => _SignUpBottomSheetFormState();
+}
+
+class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
+  final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -39,7 +48,7 @@ class SignUpBottomSheetForm extends StatelessWidget {
 
     DateTime birthday = DateFormat('dd/MM/yyyy').parse(aBirthday);
     DateTime formattedDate =
-        DateTime(birthday.year, birthday.month, birthday.day);
+    DateTime(birthday.year, birthday.month, birthday.day);
 
     final User anUser = User(
         id: const Uuid().v4(),
@@ -47,9 +56,13 @@ class SignUpBottomSheetForm extends StatelessWidget {
         userEmail: anEmail,
         userPassword: aPassword,
         userName: aName,
-        telephoneNumber: aPhone,
+        telephoneNumber: aPhone
+            .replaceAll("(", "")
+            .replaceAll(")", "")
+            .replaceAll(" ", "")
+            .replaceAll("-", ""),
         userBirthday: formattedDate.toUtc(),
-        userCpf: int.parse(aCpf),
+        userCpf: aCpf.replaceAll('.', '').replaceAll('-', ''),
         userPoints: 0,
         userAvatarPath: null,
         createdAt: DateTime.now(),
@@ -57,6 +70,21 @@ class SignUpBottomSheetForm extends StatelessWidget {
 
     BlocProvider.of<UserBloc>(context).add(CreateUserEvent(user: anUser));
   }
+
+  final _cpfMaskFormatter = MaskTextInputFormatter(
+      mask: "###.###.###-##",
+      type: MaskAutoCompletionType.lazy
+  );
+
+  final _birthDayMaskFormatter = MaskTextInputFormatter(
+    mask: "##/##/####",
+    type: MaskAutoCompletionType.lazy
+  );
+
+  final _telephoneNumberMaskFormatter = MaskTextInputFormatter(
+    mask: "(##) #####-####",
+    type: MaskAutoCompletionType.lazy
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -73,69 +101,71 @@ class SignUpBottomSheetForm extends StatelessWidget {
             ),
           );
         } else if (state is UserCreateOnErrorState) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  backgroundColor: Colors.transparent,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
-                    margin: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                        color: const Color(0xff2A303E),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/images/alert_icon.svg",
-                          width: 72,
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          'Ocorreu algo inesperado!',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  fontSize: 25, color: const Color(0xffEC5B5B)),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          'Tente Novamente!',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(color: Colors.white, fontSize: 17),
-                        ),
-                        const SizedBox(height: 32),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                                onPressed: () => Navigator.pop(context),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff5BEC84),
-                                  foregroundColor: const Color(0xff2A303E),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 32),
-                                ),
-                                child: const Text('OK'))
-                          ],
-                        )
-                      ],
-                    ),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                backgroundColor: Colors.transparent,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 32, vertical: 16),
+                  margin: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                      color: const Color(0xff2A303E),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        "assets/images/alert_icon.svg",
+                        width: 72,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        'Ocorreu algo inesperado!',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(
+                            fontSize: 25, color: const Color(0xffEC5B5B)),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        'Tente Novamente!',
+                        textAlign: TextAlign.center,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(color: Colors.white, fontSize: 17),
+                      ),
+                      const SizedBox(height: 32),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () => Navigator.pop(context),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xff5BEC84),
+                                foregroundColor: const Color(0xff2A303E),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 32),
+                              ),
+                              child: const Text('OK'))
+                        ],
+                      )
+                    ],
                   ),
-                );
-              },
-            );
+                ),
+              );
+            },
+          );
         }
       },
       child: Container(
@@ -143,70 +173,156 @@ class SignUpBottomSheetForm extends StatelessWidget {
         child: Padding(
           padding: mediaQuery.viewInsets,
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Crie sua conta',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 25),
-                TextFieldWidget(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Crie sua conta',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleLarge),
+                  const SizedBox(height: 25),
+                  TextFieldWidget(
                     label: 'Nome',
                     icon: Icons.person,
-                    controller: _nameController),
-                TextFieldWidget(
+                    controller: _nameController,
+                    formValidator: (name) {
+                      if (name!.isEmpty) {
+                        return "O campo 'Nome' deve ser informado";
+                      }
+
+                      if (name!.length < 3) {
+                        return "O campo 'Nome' deve ser pelo menos 3 caracteres";
+                      }
+
+                      return null;
+                    }
+                  ),
+                  TextFieldWidget(
                     label: 'Email',
                     icon: Icons.email,
-                    controller: _emailController),
-                TextFieldWidget(
-                    label: 'CPF', icon: Icons.key, controller: _cpfController),
-                TextFieldWidget(
+                    controller: _emailController,
+                    formValidator: (value) {
+                      final bool emailValid = RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value);
+
+                      if (value!.isEmpty) {
+                        return "O campo 'Email' deve ser informado";
+                      } else if (!emailValid) {
+                        return "Informe um email válido";
+                      }
+
+                      return null;
+                    },
+                  ),
+                  TextFieldWidget(
+                    label: 'CPF',
+                    icon: Icons.key,
+                    controller: _cpfController,
+                    keyboardType: TextInputType.number,
+                    formValidator: (value) {
+                      if (value!.isEmpty) {
+                        return "O campo 'CPF' deve ser informado";
+                      }
+
+                      return null;
+                    },
+                    inputFormatters: [
+                      _cpfMaskFormatter
+                    ],
+                  ),
+                  TextFieldWidget(
                     label: 'Data de nascimento',
                     icon: Icons.cake,
-                    controller: _birthdayController),
-                TextFieldWidget(
+                    controller: _birthdayController,
+                    keyboardType: TextInputType.datetime,
+                    formValidator: (value) {
+                      final bool birthdayCorrectFormatValid = RegExp(
+                        "^([0-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/[0-9]{4}"
+                      ).hasMatch(value);
+
+                      if (value!.isEmpty) {
+                        return "O campo 'Data de nascimento' deve ser informado";
+                      }
+
+                      if (!birthdayCorrectFormatValid) {
+                        return "Informe uma data no formato correto (dd/MM/yyyy)";
+                      }
+
+                      return null;
+                    },
+                    inputFormatters: [
+                      _birthDayMaskFormatter
+                    ],
+                  ),
+                  TextFieldWidget(
                     label: 'Telefone',
                     icon: Icons.email,
-                    controller: _phoneController),
-                TextFieldWidget(
-                  label: 'Senha',
-                  icon: Icons.lock,
-                  hidden: true,
-                  controller: _passwordController,
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (pageController.page == 1) {
-                          pageController.animateToPage(0,
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.ease);
-                        }
-                      },
-                      child: Text('Fazer Login',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(fontSize: 20)),
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () => doSignup(context),
-                      child: SizedBox(
+                    controller: _phoneController,
+                    keyboardType: TextInputType.number,
+                    formValidator: (value) {
+                      if (value!.isEmpty) {
+                        return "O campo 'Telefone' deve ser informado";
+                      }
+
+                      return null;
+                    },
+                    inputFormatters: [_telephoneNumberMaskFormatter],
+                  ),
+                  TextFieldWidget(
+                    label: 'Senha',
+                    icon: Icons.lock,
+                    hidden: true,
+                    controller: _passwordController,
+                    formValidator: (value) {
+                      if (value!.isEmpty) {
+                        return "O campo 'Senha' deve ser informado";
+                      }
+
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (widget.pageController.page == 1) {
+                            widget.pageController.animateToPage(0,
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.ease);
+                          }
+                        },
+                        child: Text('Fazer Login',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(fontSize: 20)),
+                      ),
+                      const Spacer(),
+                      SizedBox(
                         width: size.width * 0.4,
                         child: PrimaryButtonWidget(
                             text: 'Criar',
-                        ),
+                            onPressed: () => {
+                                  if (_formKey.currentState!.validate())
+                                    {doSignup(context)}
+                                }),
                       ),
-                    )
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+
 }
+

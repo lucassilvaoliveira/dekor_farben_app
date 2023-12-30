@@ -76,8 +76,7 @@ class _OnboardingScreenSate extends State<OnboardingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () => {
+                    PrimaryButtonWidget(text: 'Usuário', onPressed: () {
                       Future.delayed(Duration.zero, () {
                         showModalBottomSheet(
                           context: context,
@@ -92,13 +91,27 @@ class _OnboardingScreenSate extends State<OnboardingScreen> {
                           ),
                           builder: (_) => const LoginWidget(),
                         );
-                      })
-                    },
-                    child: const PrimaryButtonWidget(text: 'Usuário'),
-                  ),
+                      });
+                    }),
                   const SizedBox(width: 25),
-                  GestureDetector(
-                      child: const PrimaryButtonWidget(text: 'Empresa'))
+
+                  PrimaryButtonWidget(text: 'Empresa', onPressed: () {
+                    Future.delayed(Duration.zero, () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        isDismissible: true,
+                        enableDrag: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(42),
+                            topRight: Radius.circular(42),
+                          ),
+                        ),
+                        builder: (_) => const LoginWidget(),
+                      );
+                    });
+                  })
                 ],
               ),
             ),

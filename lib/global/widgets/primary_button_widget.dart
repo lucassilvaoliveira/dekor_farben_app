@@ -3,21 +3,26 @@ import 'package:flutter/material.dart';
 
 class PrimaryButtonWidget extends StatelessWidget {
   final String text;
+  final Function onPressed;
 
-  const PrimaryButtonWidget({Key? key, required this.text}) : super(key: key);
+  const PrimaryButtonWidget({
+    Key? key,
+    required this.text,
+    required this.onPressed
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       height: size.height * .08,
       width: size.width * .45,
-      decoration: BoxDecoration(
-        color: kDefaultPrimaryColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: GestureDetector(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: kDefaultPrimaryColor,
+        ),
+        onPressed: () => onPressed(),
         child: Center(
           child: Text(
             text,

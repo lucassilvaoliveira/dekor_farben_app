@@ -1,16 +1,27 @@
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String label;
   final IconData icon;
   final bool hidden;
 
-  TextEditingController? controller;
+  final TextEditingController? controller;
+  final FormFieldValidator? formValidator;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
-  TextFieldWidget(
-      {Key? key, required this.label, required this.icon, this.hidden = false, this.controller})
-      : super(key: key);
+  const TextFieldWidget({
+    Key? key,
+    required this.label,
+    required this.icon,
+    this.hidden = false,
+    this.controller,
+    this.formValidator,
+    this.inputFormatters,
+    this.keyboardType
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +50,11 @@ class TextFieldWidget extends StatelessWidget {
                     color: kDefaultPrimaryColor
                   ),
                 ),
-              )),
+              ),
+            validator: formValidator,
+            inputFormatters: inputFormatters,
+            keyboardType: keyboardType,
+          ),
         )
       ]),
     );

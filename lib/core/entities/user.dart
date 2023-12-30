@@ -6,7 +6,7 @@ class User {
   String userName;
   String telephoneNumber;
   DateTime userBirthday;
-  int userCpf;
+  String userCpf;
   int userPoints;
   String? userAvatarPath;
   DateTime createdAt;
@@ -36,7 +36,7 @@ class User {
       userName: map['userName'] ?? "undefined",
       telephoneNumber: map['telephone_number'] ?? "undefined",
       userBirthday: map['userBirthday'] != null ? DateTime.parse(map['userBirthday']) : DateTime.now(),
-      userCpf: map['userCpf'] ?? 0,
+      userCpf: map['userCpf'] ?? "undefined",
       userPoints: map['userPoints'] ?? 0,
       userAvatarPath: map['userAvatarPath'],
       createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
