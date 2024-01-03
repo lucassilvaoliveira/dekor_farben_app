@@ -19,7 +19,6 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
 
       return Success(responseMap.map((e) => Campaign.fromApi(e)).toList());
     } catch (error) {
-      print(error);
       return Error(InfraException(cause: error.toString()));
     }
   }

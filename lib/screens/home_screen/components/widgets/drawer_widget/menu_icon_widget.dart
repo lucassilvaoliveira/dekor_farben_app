@@ -6,9 +6,9 @@ class MenuIconWidget extends StatelessWidget {
   final IconData widgetIcon;
   final String widgetText;
 
-  Function()? onPressed;
+  final Function()? onPressed;
 
-  MenuIconWidget(
+  const MenuIconWidget(
       { super.key,
         required this.destinationWidget,
         required this.widgetIcon,

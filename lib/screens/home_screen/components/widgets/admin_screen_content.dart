@@ -11,6 +11,6 @@ class _AdminScreenContentState extends State<AdminScreenContent> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Text('Hello');
+    return const Text('Hello');
   }
 }

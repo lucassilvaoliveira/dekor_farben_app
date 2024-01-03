@@ -1,7 +1,4 @@
 import 'package:dekor_farben_app/core/entities/product.dart';
-import 'package:dekor_farben_app/global/constants.dart';
-import 'package:dekor_farben_app/screens/product_details_screen.dart/product_details_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CampaignProductWidget extends StatelessWidget {

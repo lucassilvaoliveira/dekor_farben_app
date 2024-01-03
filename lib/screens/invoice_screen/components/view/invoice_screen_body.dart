@@ -1,6 +1,5 @@
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/widgets/primary_select_option_button_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../global/widgets/app_bar_widget.dart';

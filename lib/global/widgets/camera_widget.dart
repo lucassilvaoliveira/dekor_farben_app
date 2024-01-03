@@ -35,7 +35,7 @@ class _CameraWidgetState extends State<CameraWidget> {
 
         setState(() {
           if (image != null) {
-            widget.image = File(image!.path);
+            widget.image = File(image.path);
           }
         });
       },

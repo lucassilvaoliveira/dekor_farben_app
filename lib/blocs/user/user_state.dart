@@ -1,4 +1,4 @@
-import '../core/entities/user.dart';
+import '../../core/entities/user.dart';
 
 abstract class UserState { }
 
@@ -13,6 +13,7 @@ class UserGetSuccessState extends UserState {
 class UserCreateInitialState extends UserState { }
 class UserCreateLoadingState extends UserState { }
 class UserCreateSuccessState extends UserState { }
+class UserAlreadyRegisteredState extends UserState { }
 class UserCreateOnErrorState extends UserState {
   final String message;
 

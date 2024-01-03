@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class Company {
   String id;
   String companyName;
@@ -5,6 +7,7 @@ class Company {
   String companyPassword;
   DateTime createdAt;
   DateTime updatedAt;
+  Uint8List? image;
   
   Company({
     required this.id,
@@ -13,6 +16,7 @@ class Company {
     required this.companyPassword,
     required this.createdAt,
     required this.updatedAt,
+
   });
 
   factory Company.fromApi(Map<String, dynamic> map) {

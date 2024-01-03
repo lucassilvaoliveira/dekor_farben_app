@@ -8,10 +8,10 @@ class CompanyCustomDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         MenuIconWidget(
-            destinationWidget: const InvoiceScreen(),
+            destinationWidget: InvoiceScreen(),
             widgetIcon: Icons.attach_file,
             widgetText: 'Notas Fiscais')
       ],

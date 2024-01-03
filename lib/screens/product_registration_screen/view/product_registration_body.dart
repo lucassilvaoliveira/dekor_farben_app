@@ -1,5 +1,4 @@
 import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../global/constants.dart';

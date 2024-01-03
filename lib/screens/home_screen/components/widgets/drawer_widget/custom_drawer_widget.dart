@@ -50,8 +50,8 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             const CompanyCustomDrawerWidget(),
             Column(
               children: [
-                MenuIconWidget(
-                    destinationWidget: const SettingsScreen(),
+                const MenuIconWidget(
+                    destinationWidget: SettingsScreen(),
                     widgetIcon: Icons.settings,
                     widgetText: 'Configurações'),
                 const SizedBox(height: 10),

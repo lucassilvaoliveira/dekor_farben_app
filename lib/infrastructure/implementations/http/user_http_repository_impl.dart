@@ -47,7 +47,7 @@ class UserHttpRepositoryImpl extends IBaseRepository<User> {
     if (response.statusCode == 201) {
       return Result.success(json);
     } else {
-      return Result.error(InfraException(cause: "An error occurred"));
+      return Result.error(InfraException(cause: "An error occurred ${json.body}"));
     }
   }
 }

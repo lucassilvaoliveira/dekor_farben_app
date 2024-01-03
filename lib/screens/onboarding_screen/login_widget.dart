@@ -1,5 +1,4 @@
-import 'package:dekor_farben_app/blocs/user_bloc.dart';
-import 'package:dekor_farben_app/blocs/user_state.dart';
+import 'package:dekor_farben_app/blocs/user/user_bloc.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/signup_bottom_sheet_form.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/login_form_widget.dart';
 import 'package:flutter/cupertino.dart';
