@@ -1,13 +1,16 @@
 import 'dart:convert';
 
-import 'package:dekor_farben_app/core/entities/company.dart';
+import 'package:dekor_farben_app/core/entities/user.dart';
 import 'package:dekor_farben_app/global/secure_storage.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/choose_company_screen.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/global_user_store.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/user_action.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../global/routes/routes.dart';
 import '../../global/widgets/primary_button_widget.dart';
@@ -43,12 +46,46 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     );
 
     if (response.statusCode == 200) {
+      final prefs = await SharedPreferences.getInstance();
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+      final expirationTime =
+          currentTime + const Duration(days: 5).inMilliseconds;
+
+      final token = jsonDecode(response.body)["token"];
+
       SecureStorage()
-          .writeSourceData("jwt", jsonDecode(response.body)["token"]);
+          .writeSourceData("jwt", token);
+
+      prefs.setInt("jwtExpiration", expirationTime);
+
+      await _storeCurrentUser(token);
+
       return true;
     }
 
     return false;
+  }
+
+  Future<void> _storeCurrentUser(final String token) async {
+    final getUserUri = Uri.parse(Routes.users);
+
+    final queryParams = {"sort": "email", "search": _loginController.text};
+
+    final getUserUriWithParams =
+        getUserUri.replace(queryParameters: queryParams);
+
+    final userResponse = await http.get(getUserUriWithParams, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization':
+      'Bearer $token',
+    });
+
+    final Map<String, dynamic> userResponseApi = jsonDecode(userResponse.body);
+    final List<dynamic> userJson = userResponseApi['items'];
+    final User user = User.fromRestRoute(userJson[0]);
+    final globalUserStore = GlobalUserStore.store;
+    globalUserStore.dispatch(SetUserAction(user: user));
   }
 
   void authenticate() async {
@@ -131,17 +168,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     final mediaQuery = MediaQuery.of(context);
     final size = mediaQuery.size;
 
-    Future<List<Company>> getCompanies() async {
-      var response = await http.get(Uri.parse('/api/companies'), headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYWxpZWxAZ21haWwuY29tIiwiaWF0IjoxNzAyNDc0ODYyLCJleHAiOjE3MDI0ODQ4NjJ9.wFDI591ee-KXAUDx_fPcK02AceLuFX4ELUBrDe5YvQo',
-      });
-
-      return Company.fromApiList(jsonDecode(response.body)["items"]);
-    }
-
     return Container(
       margin: const EdgeInsets.all(15),
       child: Padding(
@@ -186,8 +212,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   SizedBox(
                     width: size.width * 0.4,
                     child: PrimaryButtonWidget(
-                        text: 'Entrar',
-                        onPressed: () async => authenticate()),
+                        text: 'Entrar', onPressed: () async => authenticate()),
                   ),
                 ],
               )

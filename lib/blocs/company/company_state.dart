@@ -1,7 +1,5 @@
 import 'package:dekor_farben_app/core/entities/company.dart';
 
-import '../../core/entities/user.dart';
-
 abstract class CompanyState { }
 
 class CompanyGetInitialState extends CompanyState {}
@@ -10,6 +8,22 @@ class CompanyGetSuccessState extends CompanyState {
   final List<Company> companies;
 
   CompanyGetSuccessState(this.companies);
+}
+
+class CompanyGetOneSuccessState extends CompanyState {
+  final Company company;
+
+  CompanyGetOneSuccessState.initial() : company = Company(
+      id: "",
+      companyName: "",
+      companyPassword: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      campaigns: List.empty(),
+      recentWorks: List.empty()
+  );
+
+  CompanyGetOneSuccessState({required this.company});
 }
 
 class CompanyCreateInitialState extends CompanyState { }

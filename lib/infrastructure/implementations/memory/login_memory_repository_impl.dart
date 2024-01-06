@@ -22,7 +22,7 @@ class LoginMemoryRepositoryImpl implements ILoginRepository {
               userName: "luxa silva",
               telephoneNumber: "47996876844",
               userBirthday: DateTime.now(),
-              userCpf: "13665879957",
+              userDocument: "13665879957",
               userPoints: 700,
               userAvatarPath: null,
               createdAt: DateTime.now(),

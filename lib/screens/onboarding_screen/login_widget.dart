@@ -1,4 +1,6 @@
 import 'package:dekor_farben_app/blocs/user/user_bloc.dart';
+import 'package:dekor_farben_app/global/constants.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/company_signup_bottom_sheet_form.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/signup_bottom_sheet_form.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/login_form_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +47,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     controller: _pageController,
                     children: [
                       LoginFormWidget(pageController: _pageController, bottomSheetHeigh: bottomSheetHeigh),
-                      SignUpBottomSheetForm(pageController: _pageController)
+                      userType == 'user' ? SignUpBottomSheetForm(pageController: _pageController) : CompanySignupBottomSheetForm(pageController: _pageController)
                     ],
                   ),
                 ),

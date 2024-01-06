@@ -1,5 +1,6 @@
 import 'package:dekor_farben_app/blocs/company/company_state.dart';
 import 'package:dekor_farben_app/blocs/user/user_event.dart';
+import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/company_action.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import '../../../../blocs/company/company_bloc.dart';
 import '../../../../core/entities/company.dart';
 import '../../../../global/constants.dart';
 import '../../../home_screen/home_screeen.dart';
+import '../reducer/global_company_store.dart';
 
 class ChooseCompanyBody extends StatefulWidget {
   const ChooseCompanyBody({super.key});
@@ -22,7 +24,6 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
 
   void updateList(String value) {
     String searchQuery = value.toLowerCase();
-
 
     setState(() {
       filteredCompanies = companies.where((company) {
@@ -106,52 +107,71 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
               child: Container(
                 padding: const EdgeInsets.symmetric(
                     horizontal: kDefaultPadding * 2, vertical: 5),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: size.height * .65,
-                        width: size.width,
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 0),
-                          itemCount: filteredCompanies.length,
-                          itemBuilder: (context, index) => GestureDetector(
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => const HomeScreen()),
-                                  (route) => false);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 8),
-                              width: size.width,
-                              child: Column(
-                                children: [
-                                  Image.memory(
-                                    filteredCompanies[index].image!,
-                                    width: size.width * .25,
+                child: BlocBuilder<CompanyBloc, CompanyState>(
+                    builder: (BuildContext context, state) {
+                  if (state is CompanyGetLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is CompanyGetSuccessState)  {
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: size.height * .65,
+                            width: size.width,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 0),
+                              itemCount: filteredCompanies.length,
+                              itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  final companyStore = GlobalCompanyStore.store;
+                                  companyStore.dispatch(SetCompanyAction(company: filteredCompanies[index]));
+
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              HomeScreen(company: filteredCompanies[index])),
+                                      (route) => false);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 8),
+                                  width: size.width,
+                                  child: Column(
+                                    children: [
+                                      Image.memory(
+                                        filteredCompanies[index].image!,
+                                        width: size.width * .25,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return const SizedBox.shrink();
+                                        },
+                                      ),
+                                      const SizedBox(height: 15),
+                                      Text(
+                                          filteredCompanies[index].companyName),
+                                      const SizedBox(height: 10),
+                                      Container(
+                                        height: 1,
+                                        width: size.width,
+                                        color: Colors.black.withOpacity(.3),
+                                      )
+                                    ],
                                   ),
-                                  const SizedBox(height: 15),
-                                  Text(filteredCompanies[index].companyName),
-                                  const SizedBox(height: 10),
-                                  Container(
-                                    height: 1,
-                                    width: size.width,
-                                    color: Colors.black.withOpacity(.3),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                }),
               ),
             ),
           ],

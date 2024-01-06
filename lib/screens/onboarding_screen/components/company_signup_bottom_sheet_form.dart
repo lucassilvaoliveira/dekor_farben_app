@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,43 +16,37 @@ import '../../../blocs/user/user_bloc.dart';
 import '../../../blocs/user/user_state.dart';
 import '../../../global/widgets/primary_button_widget.dart';
 
-class SignUpBottomSheetForm extends StatefulWidget {
+class CompanySignupBottomSheetForm extends StatefulWidget {
   final createUserUseCase =
   CreateUserUseCase(repository: UserHttpRepositoryImpl());
 
   final PageController pageController;
 
-  SignUpBottomSheetForm({super.key, required this.pageController});
+  CompanySignupBottomSheetForm({super.key, required this.pageController});
 
   @override
-  State<SignUpBottomSheetForm> createState() => _SignUpBottomSheetFormState();
+  State<CompanySignupBottomSheetForm> createState() => _SignUpBottomSheetFormState();
 }
 
-class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
+class _SignUpBottomSheetFormState extends State<CompanySignupBottomSheetForm> {
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _cpfController = TextEditingController();
-  final _birthdayController = TextEditingController();
+  final _cnpjController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   doSignup(BuildContext context) {
     final String aName = _nameController.text;
     final String anEmail = _emailController.text;
-    final String aCpf = _cpfController.text;
-    final String aBirthday = _birthdayController.text;
+    final String aCnpj = _cnpjController.text;
     final String aPhone = _phoneController.text;
     final String aPassword = _passwordController.text;
 
-    DateTime birthday = DateFormat('dd/MM/yyyy').parse(aBirthday);
-    DateTime formattedDate =
-    DateTime(birthday.year, birthday.month, birthday.day);
-
     final User anUser = User(
         id: const Uuid().v4(),
-        userType: "user",
+        userType: "company",
         userEmail: anEmail,
         userPassword: aPassword,
         userName: aName,
@@ -62,29 +55,24 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
             .replaceAll(")", "")
             .replaceAll(" ", "")
             .replaceAll("-", ""),
-        userBirthday: formattedDate.toUtc(),
-        userDocument: aCpf.replaceAll('.', '').replaceAll('-', ''),
-        userPoints: 0,
+        userBirthday: null,
+        userDocument: aCnpj.replaceAll('.', '').replaceAll('-', '').replaceAll('/', ''),
         userAvatarPath: null,
+        userPoints: null,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
 
     BlocProvider.of<UserBloc>(context).add(CreateUserEvent(user: anUser));
   }
 
-  final _cpfMaskFormatter = MaskTextInputFormatter(
-      mask: "###.###.###-##",
+  final _cnpjMaskFormatter = MaskTextInputFormatter(
+      mask: "##.###.###/####-##",
       type: MaskAutoCompletionType.lazy
   );
 
-  final _birthDayMaskFormatter = MaskTextInputFormatter(
-    mask: "##/##/####",
-    type: MaskAutoCompletionType.lazy
-  );
-
   final _telephoneNumberMaskFormatter = MaskTextInputFormatter(
-    mask: "(##) #####-####",
-    type: MaskAutoCompletionType.lazy
+      mask: "(##) #####-####",
+      type: MaskAutoCompletionType.lazy
   );
 
   @override
@@ -124,43 +112,31 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
                           .titleLarge),
                   const SizedBox(height: 25),
                   TextFieldWidget(
-                    label: 'Nome',
-                    icon: Icons.person,
-                    controller: _nameController,
-                    formValidator: (name) => Validators
-                        .nameValidator(name)
-                        .tryGetError()
+                      label: 'Nome',
+                      icon: Icons.person,
+                      controller: _nameController,
+                      formValidator: (name) => Validators
+                          .nameValidator(name)
+                          .tryGetError()
                   ),
                   TextFieldWidget(
-                    label: 'Email',
-                    icon: Icons.email,
-                    controller: _emailController,
-                    formValidator: (value) => Validators
-                        .emailValidator(value)
-                        .tryGetError()
+                      label: 'Email',
+                      icon: Icons.email,
+                      controller: _emailController,
+                      formValidator: (value) => Validators
+                          .emailValidator(value)
+                          .tryGetError()
                   ),
                   TextFieldWidget(
-                    label: 'CPF',
+                    label: 'CNPJ',
                     icon: Icons.key,
-                    controller: _cpfController,
+                    controller: _cnpjController,
                     keyboardType: TextInputType.number,
                     formValidator: (value) => Validators
-                        .cpfValidator(value)
+                        .cnpjValidator(value)
                         .tryGetError(),
                     inputFormatters: [
-                      _cpfMaskFormatter
-                    ],
-                  ),
-                  TextFieldWidget(
-                    label: 'Data de nascimento',
-                    icon: Icons.cake,
-                    controller: _birthdayController,
-                    keyboardType: TextInputType.datetime,
-                    formValidator: (value) => Validators
-                        .birthDayValidator(value)
-                        .tryGetError(),
-                    inputFormatters: [
-                      _birthDayMaskFormatter
+                      _cnpjMaskFormatter
                     ],
                   ),
                   TextFieldWidget(
@@ -174,13 +150,13 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
                     inputFormatters: [_telephoneNumberMaskFormatter],
                   ),
                   TextFieldWidget(
-                    label: 'Senha',
-                    icon: Icons.lock,
-                    hidden: true,
-                    controller: _passwordController,
-                    formValidator: (value) => Validators
-                        .passwordValidator(value)
-                        .tryGetError()
+                      label: 'Senha',
+                      icon: Icons.lock,
+                      hidden: true,
+                      controller: _passwordController,
+                      formValidator: (value) => Validators
+                          .passwordValidator(value)
+                          .tryGetError()
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -206,9 +182,9 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
                         child: PrimaryButtonWidget(
                             text: 'Criar',
                             onPressed: () => {
-                                  if (_formKey.currentState!.validate())
-                                    {doSignup(context)}
-                                }),
+                              if (_formKey.currentState!.validate())
+                                {doSignup(context)}
+                            }),
                       ),
                     ],
                   )

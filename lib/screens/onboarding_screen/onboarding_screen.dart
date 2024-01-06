@@ -77,6 +77,8 @@ class _OnboardingScreenSate extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                     PrimaryButtonWidget(text: 'Usuário', onPressed: () {
+                      userType = 'user';
+
                       Future.delayed(Duration.zero, () {
                         showModalBottomSheet(
                           context: context,
@@ -96,6 +98,8 @@ class _OnboardingScreenSate extends State<OnboardingScreen> {
                   const SizedBox(width: 25),
 
                   PrimaryButtonWidget(text: 'Empresa', onPressed: () {
+                    userType = "company";
+
                     Future.delayed(Duration.zero, () {
                       showModalBottomSheet(
                         context: context,

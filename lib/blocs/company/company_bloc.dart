@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/usecases/company/get_company_use_case.dart';
@@ -13,12 +11,13 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
 
   CompanyBloc() : super(CompanyGetInitialState()) {
     on<GetAllCompanyEvent>((event, emit) async {
+      emit(CompanyGetLoadingState());
+
       final result = await getCompanyUseCase.call();
 
       if (result.isSuccess()) {
         emit(CompanyGetSuccessState(result.tryGetSuccess()!));
       } else {
-        print(result.tryGetError()!.cause);
         emit(CompanyGetOnErrorState(message: result.tryGetError()!.cause));
       }
     });

@@ -13,7 +13,6 @@ class CampaignMemoryRepositoryImpl implements IBaseRepository<Campaign> {
         5,
         (index) => Campaign(
           id: uuid.v4(),
-          creatorId: uuid.v4(),
           campaignParticipantsId: [],
           products: [],
           campaignName: "campaignName $index",
@@ -36,7 +35,6 @@ class CampaignMemoryRepositoryImpl implements IBaseRepository<Campaign> {
     if (entityId != null) {
       return Success(Campaign(
         id: entityId,
-        creatorId: uuid.v4(),
         campaignParticipantsId: [],
         products: [],
         campaignName: "campaignName",

@@ -61,6 +61,20 @@ class Validators {
     return Result.success(null);
   }
 
+  static Result<void, String> cnpjValidator(final String aCnpj) {
+    if (!isNotNullableAttributeValid(aCnpj)) {
+      return Result.error("O campo 'CNPJ' deve ser informado");
+    }
+
+    final numbers = aCnpj.replaceAll(RegExp(r'[^0-9]'), '');
+
+    if (!_isCNPJ(numbers)) {
+      return Result.error("Deve ser informado um CNPJ válido");
+    }
+
+    return Result.success(null);
+  }
+
   static Result<void, String> birthDayValidator(final String aBirthday) {
     if (!isNotNullableAttributeValid(aBirthday)) {
       return Result.error("O campo 'Data de nascimento' deve ser informado");
@@ -137,6 +151,41 @@ bool _isCPF(final String aCpf) {
   final secondDigit = _validateSecondDigit(aCpf);
 
   return firstDigit == aCpf[9] && secondDigit == aCpf[10];
+}
+
+bool _isCNPJ(final String cnpj) {
+  var numbers = cnpj.replaceAll(RegExp(r'[^0-9]'), '');
+  if (numbers.length != 14) return false;
+
+  String cnpjBase = numbers.substring(0, 12);
+
+  List<int> cnpjBaseDigits = cnpjBase.split('').map(int.parse).toList();
+  List<int> cnpjDigits = numbers.split('').map(int.parse).toList();
+
+  int sum1 = 0;
+  int sum2 = 0;
+
+  final weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+  final weights2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+  for (int i = 0; i < 12; i++) {
+    sum1 += cnpjBaseDigits[i] * weights1[i];
+    sum2 += cnpjDigits[i] * weights2[i];
+  }
+
+  int remainder1 = sum1 % 11;
+  int calculatedDigit1 = remainder1 < 2 ? 0 : 11 - remainder1;
+
+  if (calculatedDigit1 != cnpjDigits[12]) return false;
+
+  sum2 += calculatedDigit1 * weights2[12];
+
+  int remainder2 = sum2 % 11;
+  int calculatedDigit2 = remainder2 < 2 ? 0 : 11 - remainder2;
+
+  if (calculatedDigit2 != cnpjDigits[13]) return false;
+
+  return true;
 }
 
 String _validateFirstDigit(String aCpf) {

@@ -15,10 +15,9 @@ class CompanyMemoryRepositoryImpl implements IBaseRepository<Company> {
           (index) => Company(
             id: "${uuid.v4()} index: $index}",
             companyName: "company $index",
-            companyImagePath: null,
             companyPassword: "${uuid.v4()} index: $index}",
             createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
+            updatedAt: DateTime.now(), campaigns: [], recentWorks: [],
           ),
         ),
       );
@@ -33,10 +32,9 @@ class CompanyMemoryRepositoryImpl implements IBaseRepository<Company> {
       return Success(Company(
         id: entityId,
         companyName: "luxas company",
-        companyImagePath: null,
         companyPassword: uuid.v4(),
         createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        updatedAt: DateTime.now(), campaigns: [], recentWorks: [],
       ));
     }
     return Error(InfraException(cause: "'entityId' is missing!"));

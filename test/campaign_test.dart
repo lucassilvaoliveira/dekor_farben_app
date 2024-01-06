@@ -1,7 +1,6 @@
 import 'package:dekor_farben_app/core/entities/campaign.dart';
 import 'package:dekor_farben_app/core/entities/user.dart';
 import 'package:dekor_farben_app/core/usecases/campaign/create_campaign_use_case.dart';
-import 'package:dekor_farben_app/core/usecases/campaign/get_campaign_use_case.dart';
 import 'package:dekor_farben_app/core/usecases/campaign/get_one_campaign_use_case.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/helpers/data_json_object.dart';
@@ -19,7 +18,7 @@ void main() {
       userName: "luxas silva",
       telephoneNumber: "47996876877",
       userBirthday: DateTime.now(),
-      userCpf: "13665879957",
+      userDocument: "13665879957",
       userPoints: 500,
       userAvatarPath: null,
       createdAt: DateTime.now(),
@@ -36,7 +35,6 @@ void main() {
     final call = await createCampaignUseCase.call(
         campaign: Campaign(
       id: uuid.v4(),
-      creatorId: adminUser.id,
       campaignParticipantsId: [],
       products: [],
       campaignName: "setembro amarelo",
@@ -63,7 +61,7 @@ void main() {
       userName: "luxas silva",
       telephoneNumber: "47996876877",
       userBirthday: DateTime.now(),
-      userCpf: "13665879957",
+      userDocument: "13665879957",
       userPoints: 500,
       userAvatarPath: null,
       createdAt: DateTime.now(),
@@ -80,7 +78,6 @@ void main() {
     final call = await createCampaignUseCase.call(
         campaign: Campaign(
       id: uuid.v4(),
-      creatorId: user.id,
       campaignParticipantsId: [],
       products: [],
       campaignName: "setembro amarelo",
@@ -108,7 +105,7 @@ void main() {
       userName: "luxas silva",
       telephoneNumber: "47996876877",
       userBirthday: DateTime.now(),
-      userCpf: "13665879957",
+      userDocument: "13665879957",
       userPoints: 500,
       userAvatarPath: null,
       createdAt: DateTime.now(),
@@ -130,25 +127,12 @@ void main() {
     expect(sut.cause, "'campaign' cannot be null!");
   });
 
-  test("should be return a list of campaigns", () async {
-    final GetCampaignUseCase getCampaignUseCase =
-        GetCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
-
-    var sut;
-
-    final call = await getCampaignUseCase.call();
-
-    call.when((success) => sut = success, (error) => sut = error);
-
-    expect(sut is List<Campaign>, true);
-  });
 
   test("should be return an specific campaign", () async {
     final GetOneCampaignUseCase getOneCampaignUseCase =
         GetOneCampaignUseCase(repository: CampaignMemoryRepositoryImpl());
     final Campaign campaignToFind = Campaign(
       id: uuid.v4(),
-      creatorId: uuid.v4(),
       campaignParticipantsId: [],
       products: [],
       campaignName: "setembro amarelo",

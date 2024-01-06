@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:dekor_farben_app/core/entities/company.dart';
 import 'package:dekor_farben_app/global/routes/routes.dart';
@@ -42,7 +41,6 @@ class CompanyHttpRepositoryImpl implements IBaseRepository<Company> {
           'Bearer $jwt',
         });
 
-        final List<int> imageBytes = aCompanyAssetResponse.bodyBytes;
         company.image = aCompanyAssetResponse.bodyBytes;
       }
 

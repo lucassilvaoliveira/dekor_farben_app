@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class RecentWork {
   String id;
   String companyId;
@@ -8,6 +10,7 @@ class RecentWork {
   String recentWorkCreatedBy;
   DateTime createdAt;
   DateTime updatedAt;
+  Uint8List? image;
 
   RecentWork({
     required this.id,
@@ -23,15 +26,29 @@ class RecentWork {
 
   factory RecentWork.fromMap(Map<String, dynamic> map) {
     return RecentWork(
-      id: map['recentWorkId'] ?? "undefined",
-      companyId: map['companyId'] ?? "undefined",
+      id: map['id'] ?? "undefined",
+      companyId: map['company_id'] ?? "undefined",
       recentWorkName: map['recentWorkName'] ?? "undefined",
       recentWorkDescription: map['recentWorkDescription'] ?? "undefined",
-      recentWorkDate: map['recentWorkDate'] != null ? DateTime.parse(map['recentWorkDate']) : DateTime.now(),
+      recentWorkDate: map['date'] != null ? DateTime.parse(map['date']) : DateTime.now(),
       recentWorkPublication: null,
       recentWorkCreatedBy: map['recentWorkCreatedBy'] ?? "undefined",
-      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
-      updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : DateTime.now(),
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : DateTime.now(),
+    );
+  }
+
+  static List<RecentWork> processRecentWorksFromApi(List<dynamic> recentWorks) {
+    return List<RecentWork>.from(
+      recentWorks.map(
+            (item) {
+          if (item is Map<String, dynamic>) {
+            return RecentWork.fromMap(item);
+          } else {
+            return null;
+          }
+        },
+      ).where((item) => item != null),
     );
   }
 }

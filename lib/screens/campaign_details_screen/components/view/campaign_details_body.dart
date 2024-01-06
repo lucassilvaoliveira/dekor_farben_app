@@ -8,6 +8,7 @@ import 'package:dekor_farben_app/global/widgets/primary_select_option_button_wid
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_indicator_widget.dart';
 import 'package:dekor_farben_app/screens/product_details_screen.dart/components/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../global/widgets/app_bar_widget.dart';
 
@@ -89,21 +90,21 @@ class _CampaignDetailsBodySate extends State<CampaignDetailsBody> {
                 ),
               ],
             ),
-            child: PageView.builder(
-              itemCount: products.length,
+            child: aCampaign.products.isNotEmpty ? PageView.builder(
+              itemCount: aCampaign.products.length,
               scrollDirection: Axis.horizontal,
               controller: _controller,
               itemBuilder: (_, index) => ProductWidget(
                 size: size,
-                product: products[index],
+                product: aCampaign.products[index],
               ),
-            ),
+            ) : SvgPicture.asset("assets/images/no-data-img.svg"),
           ),
           const SizedBox(
             height: 20,
           ),
-          PageIndicatorWidget(
-              controller: _controller, count: products.length),
+          aCampaign.products.isNotEmpty ? PageIndicatorWidget(
+              controller: _controller, count: aCampaign.products.length) : const SizedBox.shrink(),
           Flexible(
             child: SizedBox(
               child: Column(
@@ -141,25 +142,3 @@ class _CampaignDetailsBodySate extends State<CampaignDetailsBody> {
   }
 }
 
-List<Product> products = [
-  Product(
-      id: '1',
-      companyId: '1',
-      productPrice: 1000,
-      productName: 'Borracha Líquida',
-      productDescription: 'Empermeabilizante',
-      productImagePath: '',
-      productAmount: 2,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now()),
-  Product(
-      id: '1',
-      companyId: '1',
-      productPrice: 1000,
-      productName: 'Diamante Aveludado',
-      productDescription: 'Empermeabilizante',
-      productImagePath: '',
-      productAmount: 2,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now())
-];

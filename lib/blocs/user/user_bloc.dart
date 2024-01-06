@@ -13,7 +13,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       final result = await createUserUseCase.call(user: event.user);
 
       if (result.isSuccess()) {
-        emit(UserCreateSuccessState());
+        emit(UserCreateSuccessState(userId: event.user.id));
       } else {
         emit(UserCreateOnErrorState(message: "Failed to create user"));
       }

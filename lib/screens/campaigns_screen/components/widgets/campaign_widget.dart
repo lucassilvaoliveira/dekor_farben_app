@@ -54,7 +54,7 @@ class CampaignWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: size.height * .07),
               child: Text(
-                "Criada em: 01/09/2023",
+                "Criada em: ${campaign.campaignInitialDate}",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -70,7 +70,7 @@ class CampaignWidget extends StatelessWidget {
                       .titleLarge
                       ?.copyWith(fontSize: 18)),
               TextSpan(
-                  text: '30/09/2023',
+                  text: "${campaign.campaignEndDate}",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge

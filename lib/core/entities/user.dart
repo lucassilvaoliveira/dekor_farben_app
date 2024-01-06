@@ -5,9 +5,9 @@ class User {
   String userPassword;
   String userName;
   String telephoneNumber;
-  DateTime userBirthday;
-  String userCpf;
-  int userPoints;
+  DateTime? userBirthday;
+  String userDocument;
+  int? userPoints;
   String? userAvatarPath;
   DateTime createdAt;
   DateTime updatedAt;
@@ -20,7 +20,7 @@ class User {
     required this.userName,
     required this.telephoneNumber,
     required this.userBirthday,
-    required this.userCpf,
+    required this.userDocument,
     required this.userPoints,
     required this.userAvatarPath,
     required this.createdAt,
@@ -29,18 +29,18 @@ class User {
 
   factory User.fromRestRoute(Map<String, dynamic> map) {
     return User(
-      id: map['userId'] ?? "undefined",
+      id: map['id'] ?? "undefined",
       userType: map['userType'],
-      userEmail: map['userEmail'] ?? "undefined",
+      userEmail: map['email'] ?? "undefined",
       userPassword: map['userPassword'] ?? "undefined",
-      userName: map['userName'] ?? "undefined",
+      userName: map['name'] ?? "undefined",
       telephoneNumber: map['telephone_number'] ?? "undefined",
-      userBirthday: map['userBirthday'] != null ? DateTime.parse(map['userBirthday']) : DateTime.now(),
-      userCpf: map['userCpf'] ?? "undefined",
-      userPoints: map['userPoints'] ?? 0,
+      userBirthday: map['birthday'] != null ? DateTime.parse(map['birthday']) : DateTime.now(),
+      userDocument: map['cpf'] ?? "undefined",
+      userPoints: map['points'] ?? 0,
       userAvatarPath: map['userAvatarPath'],
-      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
-      updatedAt: map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : DateTime.now(),
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : DateTime.now(),
+      updatedAt: map['updated_at'] != null ? DateTime.parse(map['updated_at']) : DateTime.now(),
     );
   }
 }
