@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class User {
   String id;
   String? userType;
@@ -11,6 +13,7 @@ class User {
   String? userAvatarPath;
   DateTime createdAt;
   DateTime updatedAt;
+  Uint8List? image;
 
   User({
     required this.id,

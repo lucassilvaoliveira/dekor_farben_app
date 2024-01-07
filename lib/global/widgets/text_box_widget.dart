@@ -6,13 +6,15 @@ class TextBoxWidget extends StatelessWidget {
   final String text;
   final String sectionName;
   final void Function()? onPressed;
+  final bool? isEditable;
 
   const TextBoxWidget({
     super.key,
     required this.iconProp,
     required this.text,
     required this.sectionName,
-    required this.onPressed
+    required this.onPressed,
+    this.isEditable
   });
 
   @override
@@ -62,12 +64,20 @@ class TextBoxWidget extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          IconButton(
-            icon: Icon(Icons.arrow_forward_ios, color: Colors.grey[400]),
-            onPressed: onPressed,
-          ),
+          _isEditable(isEditable, onPressed)
         ],
       ),
     );
+  }
+}
+
+Widget _isEditable(final bool? isEditable, final Function()? onPressed) {
+  if (isEditable != null && isEditable && onPressed != null) {
+    return IconButton(
+      icon: Icon(Icons.arrow_forward_ios, color: Colors.grey[400]),
+      onPressed: onPressed,
+    );
+  } else {
+    return const SizedBox.shrink();
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dekor_farben_app/core/entities/campaign.dart';
-import 'package:dekor_farben_app/core/entities/product.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
 import 'package:dekor_farben_app/global/widgets/primary_select_option_button_widget.dart';

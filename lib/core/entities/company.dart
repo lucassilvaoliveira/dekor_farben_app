@@ -7,6 +7,7 @@ import 'campaign.dart';
 class Company {
   String id;
   String companyName;
+  String companyEmail;
   String companyPassword;
   DateTime createdAt;
   DateTime updatedAt;
@@ -17,6 +18,7 @@ class Company {
   Company(
       {required this.id,
       required this.companyName,
+      required this.companyEmail,
       required this.companyPassword,
       required this.createdAt,
       required this.updatedAt,
@@ -27,6 +29,7 @@ class Company {
     return Company(
         id: map['id'] ?? "undefined",
         companyName: map['name'] ?? "undefined",
+        companyEmail: map['email'] ?? "undefined",
         companyPassword: map['companyPassword'] ?? "undefined",
         createdAt: map['created_at'] != null
             ? DateTime.parse(map['created_at'])
@@ -35,8 +38,7 @@ class Company {
             ? DateTime.parse(map['updated_at'])
             : DateTime.now(),
         campaigns: Campaign.processCampaignsFromApi(map['campaigns']),
-        recentWorks: RecentWork.processRecentWorksFromApi(map['recent_works'])
-    );
+        recentWorks: RecentWork.processRecentWorksFromApi(map['recent_works']));
   }
 
   static List<Company> fromApiList(List<dynamic> jsonList) {
@@ -45,6 +47,6 @@ class Company {
 
   @override
   String toString() {
-    return 'Company{id: $id, companyName: $companyName, companyPassword: $companyPassword, createdAt: $createdAt, updatedAt: $updatedAt}';
+    return 'Company{id: $id, companyName: $companyName, companyEmail: $companyEmail, companyPassword: $companyPassword, createdAt: $createdAt, updatedAt: $updatedAt, image: $image, campaigns: $campaigns, recentWorks: $recentWorks}';
   }
 }

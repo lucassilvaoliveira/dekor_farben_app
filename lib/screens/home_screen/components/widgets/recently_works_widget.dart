@@ -101,8 +101,6 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
             ),
             const SizedBox(height: 16),
             SizedBox(
-                height:
-                    userType == "admin" ? size.height * .6 : size.height * .48,
                 width: size.width,
                 child: _loadRecentWorksImages(size, recentWorks, _controller)),
             recentWorks.isNotEmpty

@@ -10,6 +10,7 @@ import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_ind
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../campaign_registration_screen/campaign_registration_screen.dart';
 
@@ -96,7 +97,7 @@ class _CampaignsWidgetState extends State<CampaignsWidget> {
                       ),
                     ],
                   ),
-                  child: PageView.builder(
+                  child: campaigns.isNotEmpty ? PageView.builder(
                     itemCount: campaigns.length,
                     scrollDirection: Axis.horizontal,
                     controller: controller,
@@ -104,6 +105,9 @@ class _CampaignsWidgetState extends State<CampaignsWidget> {
                       size: size,
                       campaign: campaigns[index],
                     ),
+                  ) : Padding(
+                    padding: const EdgeInsets.all(50),
+                    child: SvgPicture.asset("assets/images/no-data-img.svg"),
                   ),
                 ),
                 const SizedBox(

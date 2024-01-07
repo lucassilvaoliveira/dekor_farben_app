@@ -57,6 +57,7 @@ class UserHttpRepositoryImpl extends IBaseRepository<User> {
       if (userType == "company") {
         final companyData = {
           "name": entity.userName,
+          "email": entity.userEmail,
           "password": entity.userPassword,
         };
 

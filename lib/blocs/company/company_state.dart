@@ -20,7 +20,8 @@ class CompanyGetOneSuccessState extends CompanyState {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       campaigns: List.empty(),
-      recentWorks: List.empty()
+      recentWorks: List.empty(),
+      companyEmail: ''
   );
 
   CompanyGetOneSuccessState({required this.company});

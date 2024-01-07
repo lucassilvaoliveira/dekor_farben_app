@@ -1,4 +1,5 @@
 import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/global_user_store.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePicWidget extends StatelessWidget {
@@ -8,6 +9,9 @@ class ProfilePicWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userStore = GlobalUserStore.store;
+    final anUser = userStore.state.user;
+
     return SizedBox(
       height: 150,
       width: 150,

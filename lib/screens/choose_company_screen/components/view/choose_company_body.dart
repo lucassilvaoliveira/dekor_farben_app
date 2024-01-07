@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:dekor_farben_app/blocs/company/company_state.dart';
 import 'package:dekor_farben_app/blocs/user/user_event.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/company_action.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../blocs/company/company_bloc.dart';
 import '../../../../core/entities/company.dart';
@@ -141,15 +144,7 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
                                   width: size.width,
                                   child: Column(
                                     children: [
-                                      Image.memory(
-                                        filteredCompanies[index].image!,
-                                        width: size.width * .25,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          return const SizedBox.shrink();
-                                        },
-                                      ),
+                                      loadImage(index, size),
                                       const SizedBox(height: 15),
                                       Text(
                                           filteredCompanies[index].companyName),
@@ -176,6 +171,23 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
             ),
           ],
         ));
+  }
+
+  Widget loadImage(int index, Size size) {
+    final Uint8List? image = filteredCompanies[index].image;
+
+    if (image != null) {
+      return Image.memory(
+        image,
+        width: size.width * .25,
+        errorBuilder:
+            (BuildContext context, Object exception, StackTrace? stackTrace) {
+          return const SizedBox.shrink();
+        },
+      );
+    } else {
+      return SvgPicture.asset("assets/images/person-round.svg");
+    }
   }
 }
 

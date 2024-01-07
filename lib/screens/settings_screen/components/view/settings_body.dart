@@ -1,5 +1,7 @@
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/widgets/app_bar_widget.dart';
+import 'package:dekor_farben_app/screens/settings_screen/components/widgets/company_pic_widget.dart';
+import 'package:dekor_farben_app/screens/settings_screen/components/widgets/company_settings_options_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/profile_pic_widget.dart';
@@ -33,10 +35,10 @@ class SettingsBody extends StatelessWidget {
               SizedBox(height: size.height * .02),
               SizedBox(
                 width: size.width,
-                child: const Column(
+                child: Column(
                   children: [
-                    ProfilePicWidget(),
-                    SettingsOptionsWidget()
+                    userType == 'user' ? const ProfilePicWidget() : const CompanyPicWidget(),
+                    userType == 'user' ? const SettingsOptionsWidget() : const CompanySettingsOptionsWidget()
                   ],
                 ),
               )

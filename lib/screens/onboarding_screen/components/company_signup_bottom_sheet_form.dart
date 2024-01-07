@@ -3,7 +3,8 @@ import 'package:dekor_farben_app/core/entities/user.dart';
 import 'package:dekor_farben_app/core/usecases/user/create_user_use_case.dart';
 import 'package:dekor_farben_app/helpers/validators.dart';
 import 'package:dekor_farben_app/infrastructure/implementations/http/user_http_repository_impl.dart';
-import 'package:dekor_farben_app/screens/choose_company_screen/choose_company_screen.dart';
+import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/global_company_store.dart';
+import 'package:dekor_farben_app/screens/home_screen/home_screeen.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -83,10 +84,14 @@ class _SignUpBottomSheetFormState extends State<CompanySignupBottomSheetForm> {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserCreateSuccessState) {
+          final globalCompanyStore = GlobalCompanyStore.store;
+
           Navigator.push(
             context,
             CupertinoPageRoute(
-              builder: (context) => const ChooseCompanyScreen(),
+              builder: (context) => HomeScreen(
+                  company: globalCompanyStore.state.company
+              ),
             ),
           );
         } else if (state is UserAlreadyRegisteredState) {

@@ -35,11 +35,5 @@ void main(List<String> args) {
 }
 
 Future<Widget> isAuthenticated() async {
-  final String jwt = await SecureStorage().readSecureData("jwt");
-
-  if (jwt.isNotEmpty) {
-    return const ChooseCompanyScreen();
-  } else {
     return const OnboardingScreen();
-  }
-  }
+}
