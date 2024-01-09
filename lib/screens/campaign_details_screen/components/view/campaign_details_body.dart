@@ -127,7 +127,6 @@ class _CampaignDetailsBodySate extends State<CampaignDetailsBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       PrimarySelectOptionButtonWidget(widgetColor: kDefaultPrimaryColor, text: 'Enviar nota fiscal', isOpacity: _image == null),
-                      CameraWidget(image: _image, height: 50, width: 50)
                     ],
                   ),
                   const SizedBox(height: 40)

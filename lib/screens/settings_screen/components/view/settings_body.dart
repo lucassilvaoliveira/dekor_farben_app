@@ -1,8 +1,10 @@
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/widgets/app_bar_widget.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/global_user_store.dart';
 import 'package:dekor_farben_app/screens/settings_screen/components/widgets/company_pic_widget.dart';
 import 'package:dekor_farben_app/screens/settings_screen/components/widgets/company_settings_options_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../widgets/profile_pic_widget.dart';
 import '../widgets/settings_options_widget.dart';
@@ -37,7 +39,7 @@ class SettingsBody extends StatelessWidget {
                 width: size.width,
                 child: Column(
                   children: [
-                    userType == 'user' ? const ProfilePicWidget() : const CompanyPicWidget(),
+                    userType == 'user' ? const SizedBox.shrink() : const CompanyPicWidget(),
                     userType == 'user' ? const SettingsOptionsWidget() : const CompanySettingsOptionsWidget()
                   ],
                 ),

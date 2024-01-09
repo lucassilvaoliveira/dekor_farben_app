@@ -6,7 +6,6 @@ import 'package:dekor_farben_app/screens/choose_company_screen/components/reduce
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../blocs/company/company_bloc.dart';
 import '../../../../core/entities/company.dart';
@@ -114,7 +113,7 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
                     builder: (BuildContext context, state) {
                   if (state is CompanyGetLoadingState) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (state is CompanyGetSuccessState)  {
+                  } else if (state is CompanyGetSuccessState) {
                     return SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,13 +128,15 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
                               itemBuilder: (context, index) => GestureDetector(
                                 onTap: () {
                                   final companyStore = GlobalCompanyStore.store;
-                                  companyStore.dispatch(SetCompanyAction(company: filteredCompanies[index]));
+                                  companyStore.dispatch(SetCompanyAction(
+                                      company: filteredCompanies[index]));
 
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       CupertinoPageRoute(
-                                          builder: (context) =>
-                                              HomeScreen(company: filteredCompanies[index])),
+                                          builder: (context) => HomeScreen(
+                                              company:
+                                                  filteredCompanies[index])),
                                       (route) => false);
                                 },
                                 child: Container(
@@ -177,16 +178,33 @@ class _ChooseCompanyBodyState extends State<ChooseCompanyBody> {
     final Uint8List? image = filteredCompanies[index].image;
 
     if (image != null) {
-      return Image.memory(
-        image,
-        width: size.width * .25,
-        errorBuilder:
-            (BuildContext context, Object exception, StackTrace? stackTrace) {
-          return const SizedBox.shrink();
-        },
+      return SizedBox(
+        height: 100,
+        width: 100,
+        child: ClipOval(
+          child: Image.memory(
+            image,
+            width: 100,
+            height: 100,
+            errorBuilder:
+                (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const SizedBox.shrink();
+            },
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+          ),
+        ),
       );
     } else {
-      return SvgPicture.asset("assets/images/person-round.svg");
+      return SizedBox(
+          height: 100,
+          width: 100,
+          child: CircleAvatar(
+            backgroundColor: Colors.grey.withOpacity(1),
+            child: const Image(
+              image: AssetImage("assets/images/person-round.png"),
+            ),
+          ));
     }
   }
 }

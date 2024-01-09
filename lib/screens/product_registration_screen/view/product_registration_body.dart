@@ -29,7 +29,6 @@ class _ProductRegistrationBodyState extends State<ProductRegistrationBody> {
                 decoration: InputDecoration(hintText: 'Nome'),
               ),
               const SizedBox(height: 20),
-              CameraWidget(height: 40, width: 40)
             ],
           ),
         ),

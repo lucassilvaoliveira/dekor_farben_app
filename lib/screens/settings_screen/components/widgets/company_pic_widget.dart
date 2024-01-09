@@ -37,6 +37,12 @@ class _CompanyPicWidgetState extends State<CompanyPicWidget> {
       }
     }
 
+    void onImageSelected(File? selectedImage) {
+      setState(() {
+        image = selectedImage;
+      });
+    }
+
     return SizedBox(
       height: 150,
       width: 150,
@@ -68,7 +74,7 @@ class _CompanyPicWidgetState extends State<CompanyPicWidget> {
           Positioned(
               right: -16,
               bottom: 0,
-              child: CameraWidget(width: 50, height: 50, image: image)
+              child: CameraWidget(width: 50, height: 50, image: image, onImageSelected: onImageSelected)
           )
         ],
       ),

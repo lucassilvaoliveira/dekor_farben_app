@@ -24,11 +24,6 @@ class ProfilePicWidget extends StatelessWidget {
             backgroundImage:
                 const AssetImage("assets/images/Profile Image.png"),
           ),
-          Positioned(
-            right: -16,
-            bottom: 0,
-            child: CameraWidget(width: 50, height: 50)
-          )
         ],
       ),
     );

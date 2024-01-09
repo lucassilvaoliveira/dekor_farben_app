@@ -45,7 +45,6 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
                     decoration: InputDecoration(hintText: 'Data'),
                   ),
                   const SizedBox(height: 20),
-                  CameraWidget(height: 40, width: 40)
                 ],
               ),
             ),
