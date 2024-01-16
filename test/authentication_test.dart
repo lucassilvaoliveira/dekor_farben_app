@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test("should be authenticate an user", () async {
     final loginUseCase = LoginUseCase(repository: LoginMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final call = await loginUseCase.call(email: "silvaluxas5@gmail.com", password: "123456");
 
@@ -19,7 +19,7 @@ void main() {
 
   test("should be not authenticate an user", () async {
     final loginUseCase = LoginUseCase(repository: LoginMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final call = await loginUseCase.call(email: null, password: "213");
 

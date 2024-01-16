@@ -92,14 +92,14 @@ class _CampaignEditBodyState extends State<CampaignEditBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        child: const PrimarySelectOptionButtonWidget(widgetColor: kDefaultPrimaryColor, text: 'Ver Produtos', isOpacity: false),
+                        child: PrimarySelectOptionButtonWidget(widgetColor: kDefaultPrimaryColor, text: 'Ver Produtos', isOpacity: false, onPressed: () {}),
                         onTap: () => Navigator.push(
                           context,
                           CupertinoPageRoute(builder: (context) => const ProductRegistrationScreen()),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const PrimarySelectOptionButtonWidget(widgetColor: Colors.red, text: 'Excluir', isOpacity: false)
+                      PrimarySelectOptionButtonWidget(widgetColor: Colors.red, text: 'Excluir', isOpacity: false, onPressed: () {})
                     ],
                   ),
                 ],

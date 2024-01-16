@@ -30,7 +30,7 @@ void main() {
       user: adminUser,
     );
 
-    var sut;
+    Object sut;
 
     final call = await createCampaignUseCase.call(
         campaign: Campaign(
@@ -73,7 +73,7 @@ void main() {
       user: user,
     );
 
-    var sut;
+    Object sut;
 
     final call = await createCampaignUseCase.call(
         campaign: Campaign(
@@ -117,7 +117,7 @@ void main() {
       user: user,
     );
 
-    var sut;
+    Object sut;
 
     final call = await createCampaignUseCase.call(campaign: null);
 
@@ -144,7 +144,7 @@ void main() {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
-    var sut;
+    Object sut;
 
     final call =
         await getOneCampaignUseCase.call(campaignId: campaignToFind.id);

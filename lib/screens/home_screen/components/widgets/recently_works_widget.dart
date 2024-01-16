@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/entities/recent_work.dart';
 import '../../../../global/constants.dart';
-import '../../../../global/widgets/camera_widget.dart';
 
 class RecentlyWorksWidget extends StatefulWidget {
   final List<RecentWork> recentWorks;
@@ -39,12 +38,12 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
             title: const Text('Novo trabalho recente'),
             content: SizedBox(
               height: size.height * .2,
-              child: Column(
+              child: const Column(
                 children: [
-                  const TextField(
+                  TextField(
                     decoration: InputDecoration(hintText: 'Data'),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
@@ -101,6 +100,7 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
             const SizedBox(height: 16),
             SizedBox(
                 width: size.width,
+                height: size.height * .46,
                 child: _loadRecentWorksImages(size, recentWorks, _controller)),
             recentWorks.isNotEmpty
                 ? PageIndicatorWidget(

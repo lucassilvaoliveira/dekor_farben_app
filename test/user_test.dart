@@ -11,7 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test("should be create a new user", () async {
     final createUserUseCase = CreateUserUseCase(repository: UserMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final newUser = User(
       id: uuid.v4(),
@@ -38,7 +38,7 @@ void main() {
 
   test("should be return error when try create null user", () async {
     final createUserUseCase = CreateUserUseCase(repository: UserMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final call = await createUserUseCase.call(user: null);
 
@@ -49,7 +49,7 @@ void main() {
 
   test("should be return a list of users", () async {
     final GetUserUseCase getUserUseCase = GetUserUseCase(repository: UserMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final call = await getUserUseCase.call();
 
@@ -60,7 +60,7 @@ void main() {
 
   test("should be return an specific user", () async {
     final GetOneUserUseCase getOneUserUseCase = GetOneUserUseCase(repository: UserMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final User userToFind = User(
       id: uuid.v4(),

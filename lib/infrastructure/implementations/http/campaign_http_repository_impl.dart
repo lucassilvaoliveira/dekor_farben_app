@@ -19,7 +19,6 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
       final response = await http.get(uri);
 
       final List<dynamic> responseMap = jsonDecode(response.body);
-
       return Success(responseMap.map((e) => Campaign.fromApi(e)).toList());
     } catch (error) {
       return Error(InfraException(cause: error.toString()));
@@ -56,6 +55,26 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
 
       final List<Campaign> campaigns =
       jsonCompanies.map((e) => Campaign.fromApi(e)).toList();
+
+      if (response.statusCode == 200) {
+        for (final campaign in campaigns) {
+          for (final product in campaign.products) {
+            final assetUri = Uri.parse("${Routes.getProductAsset}${product.id}");
+            var assetResponse = await http.get(assetUri, headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization':
+              'Bearer $jwt',
+            });
+
+            if (assetResponse.statusCode == 200) {
+              product.image = assetResponse.bodyBytes;
+            } else {
+              return Error(InfraException(cause: "Could not load image"));
+            }
+          }
+        }
+      }
 
       return Success(campaigns);
     } catch (error) {

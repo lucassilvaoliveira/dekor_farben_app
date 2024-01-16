@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test("should be return a list of company's", () async {
     final GetCompanyUseCase getCompanyUseCase = GetCompanyUseCase(repository: CompanyMemoryRepositoryImpl());
-    var sut;
+    Object sut;
 
     final call = await getCompanyUseCase.call();
 

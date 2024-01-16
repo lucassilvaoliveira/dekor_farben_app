@@ -1,5 +1,6 @@
 import 'package:dekor_farben_app/core/entities/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ProductWidget extends StatelessWidget {
   final Size size;
@@ -20,7 +21,8 @@ class ProductWidget extends StatelessWidget {
           radius: 50,
           backgroundColor: Colors.grey.withOpacity(.3),
           child: ClipOval(
-              child: Image.asset('assets/images/cimento-queimado.jpg')),
+              child: product.image != null ? Image.memory(product.image!) : SvgPicture.asset("assets/images/no-data-img.svg")
+          ),
         ),
         const SizedBox(width: 50),
         Flexible(

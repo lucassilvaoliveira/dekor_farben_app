@@ -29,7 +29,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
           children: [
             Row(
               children: [
-                const CircleAvatar(),
+                userType == 'company' ? const CircleAvatar() : const SizedBox.shrink(),
                 const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

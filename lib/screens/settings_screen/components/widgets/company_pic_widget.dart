@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../global/widgets/camera_widget.dart';
 import 'package:dekor_farben_app/core/usecases/company/get_company_asset_use_case.dart';

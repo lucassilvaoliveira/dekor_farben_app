@@ -4,6 +4,7 @@ import 'package:dekor_farben_app/core/entities/company.dart';
 import 'package:dekor_farben_app/core/entities/user.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/secure_storage.dart';
+import 'package:dekor_farben_app/global/widgets/dialogs/on_error_dialog.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/choose_company_screen.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/company_action.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/global_company_store.dart';
@@ -13,7 +14,6 @@ import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/us
 import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,12 +22,12 @@ import '../../global/widgets/primary_button_widget.dart';
 
 class LoginFormWidget extends StatefulWidget {
   final PageController pageController;
-  final double bottomSheetHeigh;
+  final double bottomSheetHeight;
 
   const LoginFormWidget(
       {super.key,
       required this.pageController,
-      required this.bottomSheetHeigh});
+      required this.bottomSheetHeight});
 
   @override
   State<LoginFormWidget> createState() => _LoginFormWidgetState();
@@ -135,64 +135,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     } else {
       if (!mounted) return;
 
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            backgroundColor: Colors.transparent,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              margin: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                  color: const Color(0xff2A303E),
-                  borderRadius: BorderRadius.circular(12)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(
-                    "assets/images/alert_icon.svg",
-                    width: 72,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    'Credenciais Incorretas!',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontSize: 25, color: const Color(0xffEC5B5B)),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    'Email ou senha incorretos, tente novamente!',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: Colors.white, fontSize: 17),
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff5BEC84),
-                            foregroundColor: const Color(0xff2A303E),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 32),
-                          ),
-                          child: const Text('OK'))
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        },
+      onErrorDialog(
+          aContext: context,
+          aTitle: "Credenciais Incorretas!",
+          aSubtitle: "Email ou senha incorretos, tente novamente!",
+          onOkPressed: () => Navigator.pop(context)
       );
     }
   }

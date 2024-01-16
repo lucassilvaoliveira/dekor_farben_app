@@ -111,7 +111,7 @@ List<Map<String, dynamic>> _getUserAttributes() {
     },
     {
       "iconProp": Icons.key,
-      "nameProp": "CNPJ",
+      "nameProp": "CPF",
       "userName": cpfMask.maskText(anUser.userDocument)
     },
     {

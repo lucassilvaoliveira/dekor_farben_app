@@ -90,10 +90,11 @@ class _InvoiceScreenBodyState extends State<InvoiceScreenBody> {
                                                 ?.copyWith(color: Colors.black)
                                         ),
                                       ),
-                                      const PrimarySelectOptionButtonWidget(
-                                          text: 'Validar',
-                                          isOpacity: false,
-                                          widgetColor: kDefaultPrimaryColor
+                                      PrimarySelectOptionButtonWidget(
+                                        text: 'Validar',
+                                        isOpacity: false,
+                                        widgetColor: kDefaultPrimaryColor,
+                                        onPressed: () {},
                                       ),
                                     ],
                                   ),

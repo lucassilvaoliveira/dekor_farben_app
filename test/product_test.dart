@@ -26,7 +26,7 @@ void main() {
 
     final CreateProductUseCase createProductUseCase = CreateProductUseCase(repository: ProductMemoryRepositoryImpl(), user: adminUser);
 
-    var sut;
+    Object sut;
 
     final call = await createProductUseCase.call(
         product: Product(
@@ -65,7 +65,7 @@ void main() {
 
     final CreateProductUseCase createProductUseCase = CreateProductUseCase(repository: ProductMemoryRepositoryImpl(), user: user);
 
-    var sut;
+    Object sut;
 
     final call = await createProductUseCase.call(
         product: Product(

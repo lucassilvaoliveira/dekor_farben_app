@@ -1,4 +1,3 @@
-import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../global/constants.dart';
@@ -23,12 +22,12 @@ class _ProductRegistrationBodyState extends State<ProductRegistrationBody> {
         title: const Text('Novo Produto'),
         content: SizedBox(
           height: size.height * .2,
-          child: Column(
+          child: const Column(
             children: [
-              const TextField(
+              TextField(
                 decoration: InputDecoration(hintText: 'Nome'),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
             ],
           ),
         ),

@@ -79,10 +79,12 @@ class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
                       ),
                 )
             ),
-            const PrimarySelectOptionButtonWidget(
-                text: 'Salvar',
-                isOpacity: false,
-                widgetColor: kDefaultPrimaryColor)
+            PrimarySelectOptionButtonWidget(
+              widgetColor: kDefaultPrimaryColor,
+              text: 'Salvar',
+              isOpacity: false,
+              onPressed: () {},
+            )
           ],
         ),
       ),

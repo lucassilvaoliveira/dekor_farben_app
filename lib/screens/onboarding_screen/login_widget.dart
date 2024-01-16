@@ -46,7 +46,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   child: PageView(
                     controller: _pageController,
                     children: [
-                      LoginFormWidget(pageController: _pageController, bottomSheetHeigh: bottomSheetHeigh),
+                      LoginFormWidget(pageController: _pageController, bottomSheetHeight: bottomSheetHeigh),
                       userType == 'user' ? SignUpBottomSheetForm(pageController: _pageController) : CompanySignupBottomSheetForm(pageController: _pageController)
                     ],
                   ),

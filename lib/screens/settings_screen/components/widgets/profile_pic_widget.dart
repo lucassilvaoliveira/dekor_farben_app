@@ -1,4 +1,3 @@
-import 'package:dekor_farben_app/global/widgets/camera_widget.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/global_user_store.dart';
 import 'package:flutter/material.dart';
 
