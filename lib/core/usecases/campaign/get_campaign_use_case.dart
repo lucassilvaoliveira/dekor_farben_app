@@ -15,7 +15,7 @@ class GetCampaignUseCase {
       final repositoryImpl = repository as CampaignHttpRepositoryImpl;
       return await repositoryImpl.getAllByCompanyId(companyId: companyId);
     } else {
-      return Future.error(InfraException(cause: "Could complete operation"));
+      return Future.error(InfraException(cause: "Could not complete operation"));
     }
   }
 }

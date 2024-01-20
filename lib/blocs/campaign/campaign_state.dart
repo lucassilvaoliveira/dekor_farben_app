@@ -3,6 +3,8 @@ import '../../core/entities/campaign.dart';
 
 abstract class CampaignState {}
 
+class CampaignLoadingState extends CampaignState { }
+
 class CampaignInitState extends CampaignState {}
 class CampaignGetSuccessState extends CampaignState {
   final List<Campaign> campaigns;

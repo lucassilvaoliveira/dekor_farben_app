@@ -1,59 +1,86 @@
+import 'package:dekor_farben_app/blocs/campaign/campaign_bloc.dart';
+import 'package:dekor_farben_app/blocs/campaign/campaign_event.dart';
+import 'package:dekor_farben_app/blocs/campaign/campaign_state.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/global/widgets/primary_select_option_button_widget.dart';
+import 'package:dekor_farben_app/infrastructure/campaign/create_campaign_request.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../global/widgets/app_bar_widget.dart';
-import '../../../../global/widgets/text_box_widget.dart';
 
 class CampaignRegistrationBody extends StatefulWidget {
   const CampaignRegistrationBody({super.key});
 
   @override
-  State<CampaignRegistrationBody> createState() => _CampaignRegistrationBodyState();
+  State<CampaignRegistrationBody> createState() =>
+      _CampaignRegistrationBodyState();
 }
 
 class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
+  final _nameController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _rewardController = TextEditingController();
+  final _initialDateController = TextEditingController();
+  final _endDateController = TextEditingController();
+
+  late List<Map<String, dynamic>> settingsOptionsData;
+
+  @override
+  void initState() {
+    super.initState();
+    settingsOptionsData = [
+      {
+        "icon": Icons.star,
+        "fieldName": "Decor coins",
+        "value": "",
+        "controller": _rewardController
+      },
+      {
+        "icon": Icons.pending_actions,
+        "fieldName": "Nome da campanha",
+        "value": "",
+        "controller": _nameController
+      },
+      {
+        "icon": Icons.calendar_month,
+        "fieldName": "Data de início",
+        "value": "",
+        "controller": _initialDateController
+      },
+      {
+        "icon": Icons.calendar_month,
+        "fieldName": "Data final",
+        "value": "",
+        "controller": _endDateController
+      },
+      {
+        "icon": Icons.add,
+        "fieldName": "Descrição",
+        "value": "",
+        "controller": _descriptionController
+      }
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> editField(String field) async {
-      String newValue = "";
-      await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Colors.grey[900],
-            title: Text('Edite $field'),
-            content: TextField(
-              autofocus: true,
-              style: const TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                  hintText: "Informe o novo valor",
-                  hintStyle: TextStyle(color: Colors.grey)
-              ),
-              onChanged: (value) {
-                newValue = value;
-              },
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text(
-                    'Cancelar',
-                    style: TextStyle(color: Colors.white),
-                  )
-              ),
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(newValue),
-                  child: const Text(
-                    'Salvar',
-                    style: TextStyle(color: Colors.white),
-                  )
-              )
-            ],
-          )
-      );
-    }
+    return BlocBuilder<CampaignBloc, CampaignState>(
+      builder: (BuildContext context, state) {
+        if (state is CampaignLoadingState) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return _loadForm();
+        }
+      },
+    );
+  }
 
+  Widget _loadForm() {
     final size = MediaQuery.of(context).size;
+    final containerHeight = size.height * .7;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 26, vertical: 60),
@@ -62,60 +89,52 @@ class _CampaignRegistrationBodyState extends State<CampaignRegistrationBody> {
           children: [
             const AppBarWidget(title: 'Cadastro da campanha'),
             SizedBox(
-                height: size.height * .7,
-                width: size.width,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => const SizedBox(height: 0),
-                  itemCount: settingsOptionsData.length,
-                  itemBuilder: (context, index) =>
-                      SizedBox(
-                        width: size.width,
-                        child: TextBoxWidget(
-                            iconProp: settingsOptionsData[index]["icon"],
-                            text: settingsOptionsData[index]["value"],
-                            sectionName: settingsOptionsData[index]["fieldName"],
-                            onPressed: () => editField(settingsOptionsData[index]["fieldName"])
-                        ),
-                      ),
-                )
+              height: containerHeight,
+              width: size.width,
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(vertical: containerHeight * .2),
+                separatorBuilder: (context, index) => const SizedBox.shrink(),
+                itemCount: settingsOptionsData.length,
+                itemBuilder: (context, index) => SizedBox(
+                  width: size.width,
+                  child: TextFieldWidget(
+                    label: settingsOptionsData[index]["fieldName"],
+                    icon: settingsOptionsData[index]["icon"],
+                    controller: settingsOptionsData[index]["controller"],
+                  ),
+                ),
+              ),
             ),
             PrimarySelectOptionButtonWidget(
               widgetColor: kDefaultPrimaryColor,
               text: 'Salvar',
               isOpacity: false,
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<CampaignBloc>(context).add(CreateCampaignEvent(
+                    request: CreateCampaignRequest(
+                        name: _nameController.text,
+                        description: _descriptionController.text,
+                        reward: int.parse(_rewardController.text),
+                        initialDate: formatDate(_initialDateController.text),
+                        endDate: formatDate(_endDateController.text),
+                        isOpen: true,
+                        isActive: true)));
+              },
             )
           ],
         ),
       ),
     );
   }
-}
 
-List<Map<String, dynamic>> settingsOptionsData = [
-  {
-    "icon": Icons.star,
-    "fieldName": "Decor coins",
-    "value": ""
-  },
-  {
-    "icon": Icons.pending_actions,
-    "fieldName": "Nome da campanha",
-    "value": ""
-  },
-  {
-    "icon": Icons.calendar_month,
-    "fieldName": "Data de início",
-    "value": ""
-  },
-  {
-    "icon": Icons.calendar_month,
-    "fieldName": "Data final",
-    "value": ""
-  },
-  {
-    "icon": Icons.add,
-    "fieldName": "Descrição",
-    "value": ""
-  },
-];
+  DateTime formatDate(final String date) {
+    DateTime formattedDate = DateFormat('dd/MM/yyyy')
+        .parse(date);
+
+    return DateTime(
+        formattedDate.year,
+        formattedDate.month,
+        formattedDate.day
+    );
+  }
+}
