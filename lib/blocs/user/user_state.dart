@@ -10,6 +10,8 @@ class UserGetSuccessState extends UserState {
   UserGetSuccessState(this.users);
 }
 
+class UserErrorState extends UserState { }
+
 class UserGetOneSuccessState extends UserState {
   final User user;
 

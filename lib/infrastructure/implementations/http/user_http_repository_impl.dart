@@ -23,9 +23,30 @@ class UserHttpRepositoryImpl extends IBaseRepository<User> {
   }
 
   @override
-  Future<Result<User, InfraException>> getOne({required String? entityId}) {
-    // TODO: implement getOne
-    throw UnimplementedError();
+  Future<Result<User, InfraException>> getOne({required String? entityId}) async {
+    try {
+      final uri = Uri.parse("${Routes.users}/$entityId");
+      final jwt = await SecureStorage().readSecureData("jwt");
+
+      var request = await http.get(uri, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'Bearer $jwt',
+      });
+
+
+      final Map<String, dynamic> json = jsonDecode(request.body);
+      final User user = User.fromRestRoute(json);
+
+      if (request.statusCode == 200) {
+        return Success(user);
+      } else {
+        return Error(InfraException(cause: "Could not find user with id $entityId"));
+      }
+    } catch (error) {
+      return Error(InfraException(cause: error.toString()));
+    }
   }
 
   @override

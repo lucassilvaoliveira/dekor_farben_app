@@ -10,6 +10,14 @@ class Validators {
     return false;
   }
 
+  static Result<void, String> nonNullValidator(final String value, final String valueName) {
+    if (!isNotNullableAttributeValid(value)) {
+      return Result.error("O campo '$valueName' deve ser informado");
+    }
+
+    return Result.success(null);
+  }
+
   static Result<void, String> nameValidator(final String aName) {
     bool isFullName(String name) {
       List<String> words = name.split(" ")
@@ -75,6 +83,23 @@ class Validators {
     return Result.success(null);
   }
 
+  static Result<void, String> dateValidator(final String aDate, final String fieldName) {
+    if (!isNotNullableAttributeValid(aDate)) {
+      return Result.error("O campo '$fieldName' deve ser informado");
+    }
+
+    final bool birthdayCorrectFormatValid = RegExp(
+        "^([0-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/[0-9]{4}"
+    ).hasMatch(aDate);
+
+    if (!birthdayCorrectFormatValid) {
+      return Result.error("Informe uma data no formato correto (dd/MM/yyyy)");
+    }
+
+    return Result.success(null);
+  }
+
+  @Deprecated("use dateValidator function for date validation")
   static Result<void, String> birthDayValidator(final String aBirthday) {
     if (!isNotNullableAttributeValid(aBirthday)) {
       return Result.error("O campo 'Data de nascimento' deve ser informado");

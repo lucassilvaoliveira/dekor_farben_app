@@ -1,5 +1,5 @@
 class HttpProtocolConfiguration {
-  final String baseUrl = "http://localhost:8080/api";
+  final String baseUrl = "https://decor-coins.onrender.com/api";
 
   static final HttpProtocolConfiguration _instance = HttpProtocolConfiguration._internal();
 

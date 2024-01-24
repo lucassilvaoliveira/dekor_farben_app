@@ -10,3 +10,16 @@ class CreateInvoiceEvent extends InvoiceEvent {
 
   CreateInvoiceEvent({required this.invoice, required this.image});
 }
+
+class ListInvoiceByCompanyEvent extends InvoiceEvent {
+  final String companyId;
+
+  ListInvoiceByCompanyEvent({required this.companyId});
+}
+
+class ValidateInvoiceEvent extends InvoiceEvent {
+  final String invoiceId;
+
+  ValidateInvoiceEvent({required this.invoiceId});
+
+}

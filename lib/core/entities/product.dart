@@ -3,6 +3,7 @@ import 'dart:typed_data';
 class Product {
   String id;
   String companyId;
+  String campaignId;
   double productPrice;
   String productName;
   String productDescription;
@@ -15,6 +16,7 @@ class Product {
   Product({
     required this.id,
     required this.companyId,
+    required this.campaignId,
     required this.productPrice,
     required this.productName,
     required this.productDescription,
@@ -25,10 +27,11 @@ class Product {
     this.image
   });
 
-  factory Product.  fromMap(Map<String, dynamic> map) {
+  factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       id: map['id'] ?? "undefined",
       companyId: map['company_id'] ?? "undefined",
+      campaignId: map['campaign_id'] ?? "undefined",
       productPrice: map['price'] ?? 0,
       productDescription: map['description'] ?? "undefined",
       productName: map['name'] ?? "undefined",

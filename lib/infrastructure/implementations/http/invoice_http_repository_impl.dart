@@ -32,6 +32,88 @@ class InvoiceHttpRepositoryImpl implements IBaseRepository<Invoice> {
     throw UnimplementedError();
   }
 
+  Future<Result<List<Invoice>, InfraException>> listByCompany({required String companyId}) async {
+    try {
+      final uri = Uri.parse("${Routes.invoiceByCompany}/$companyId");
+      final jwt = await SecureStorage().readSecureData("jwt");
+
+      var response = await http.get(uri, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'Bearer $jwt',
+      });
+
+      final List<dynamic> json = jsonDecode(response.body);
+
+      final List<Invoice> invoices = json.map((e) => Invoice.fromApi(e)).toList();
+
+      for (var invoice in invoices) {
+        final getImageResponse = await getAsset(anId: invoice.id);
+
+        if (getImageResponse.isSuccess()) {
+          invoice.image = getImageResponse.tryGetSuccess()?.body["image"];
+        }
+      }
+
+      return Success(invoices);
+    } catch (error) {
+      return Error(InfraException(cause: error.toString()));
+    }
+  }
+
+  Future<Result<DataJsonObject, InfraException>> validate({required String invoiceId}) async {
+    try {
+      final uri = Uri.parse("${Routes.validateInvoice}/$invoiceId");
+      final jwt = await SecureStorage().readSecureData("jwt");
+
+      var response = await http.get(uri, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'Bearer $jwt',
+      });
+
+      if (response.statusCode == 200) {
+        final body = {
+          "message": "invoice validated"
+        };
+        return Success(DataJsonObject(status: 200, body: body));
+      } else {
+        return Error(InfraException(cause: response.body));
+      }
+    } catch (error) {
+      return Error(InfraException(cause: error.toString()));
+    }
+  }
+
+  Future<Result<DataJsonObject, InfraException>> getAsset({required String anId}) async {
+    final getAssetUri = Uri
+        .parse("${Routes.invoiceAsset}$anId");
+
+    final jwt = await SecureStorage().readSecureData("jwt");
+
+    var request = await http.get(getAssetUri, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization':
+      'Bearer $jwt',
+    });
+
+    if (request.statusCode == 200) {
+      final response = {
+        "image": request.bodyBytes
+      };
+
+      final DataJsonObject json =
+      DataJsonObject(status: request.statusCode, body: response);
+
+      return Success(json);
+    } else {
+      return Error(InfraException(cause: "Could not load image"));
+    }
+  }
+
   Future<Result<DataJsonObject, InfraException>> create({
     required Invoice entity,
     required File aFile

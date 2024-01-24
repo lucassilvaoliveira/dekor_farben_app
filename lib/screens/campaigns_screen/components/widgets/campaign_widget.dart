@@ -25,7 +25,7 @@ class CampaignWidget extends StatelessWidget {
             builder: (context) => userType == 'user' ?
             CampaignDetailsScreen(
               campaign: campaign,
-            ) : const CampaignEditScreen(),
+            ) : CampaignEditScreen(campaign: campaign),
           ),
         );
       },

@@ -17,3 +17,8 @@ class RecentWorkGetAssetErrorState extends RecentWorkState {
 
   RecentWorkGetAssetErrorState({required this.errorMessage});
 }
+
+class RecentWorkCreateSuccessState extends RecentWorkState {}
+class RecentWorkUpdateSuccessState extends RecentWorkState {}
+class RecentWorkDeleteSuccessState extends RecentWorkState {}
+class RecentWorkErrorState extends RecentWorkState {}

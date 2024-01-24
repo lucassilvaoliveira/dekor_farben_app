@@ -1,10 +1,21 @@
+import 'dart:io';
+
 import 'package:dekor_farben_app/blocs/recent_work/recent_work_bloc.dart';
 import 'package:dekor_farben_app/blocs/recent_work/recent_work_event.dart';
 import 'package:dekor_farben_app/blocs/recent_work/recent_work_state.dart';
+import 'package:dekor_farben_app/global/widgets/default_camera_widget.dart';
+import 'package:dekor_farben_app/global/widgets/dialogs/on_success_dialog.dart';
+import 'package:dekor_farben_app/infrastructure/recent_work/create_recent_work_request.dart';
+import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/global_company_store.dart';
 import 'package:dekor_farben_app/screens/home_screen/components/widgets/page_indicator_widget.dart';
+import 'package:dekor_farben_app/screens/home_screen/home_screeen.dart';
+import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/text_field_widget.dart';
+import 'package:dekor_farben_app/screens/recent_work_edit_screen/recent_work_edit_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/entities/recent_work.dart';
 import '../../../../global/constants.dart';
@@ -20,10 +31,14 @@ class RecentlyWorksWidget extends StatefulWidget {
 
 class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
   final _controller = PageController();
+  final _dateController = TextEditingController();
+
+  File? _image;
 
   @override
   void initState() {
     super.initState();
+    _image = null;
     BlocProvider.of<RecentWorkBloc>(context)
         .add(GetRecentWorkAssetsEvent(recentWorks: widget.recentWorks));
   }
@@ -32,28 +47,50 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    void onImageSelected(File? selectedImage) {
+      setState(() {
+        _image = selectedImage;
+      });
+    }
+
     Future openDialog() => showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Novo trabalho recente'),
             content: SizedBox(
               height: size.height * .2,
-              child: const Column(
+              child: Column(
                 children: [
-                  TextField(
-                    decoration: InputDecoration(hintText: 'Data'),
-                  ),
-                  SizedBox(height: 20),
+                  TextFieldWidget(label: "Data", icon: Icons.date_range, controller: _dateController),
+                  const SizedBox(height: 20),
+                  DefaultCameraWidget(
+                      height: 50,
+                      width: 50,
+                      onImageSelected: onImageSelected
+                  )
                 ],
               ),
             ),
             actions: [
-              TextButton(onPressed: () {}, child: const Text('Salvar'))
+              TextButton(onPressed: () => createRecentWork(), child: const Text("Salvar"))
             ],
           ),
         );
 
-    return BlocBuilder<RecentWorkBloc, RecentWorkState>(
+    return BlocConsumer<RecentWorkBloc, RecentWorkState>(
+      listener: (BuildContext contex, state) {
+        if (state is RecentWorkCreateSuccessState) {
+          onSuccessDialog(
+              aContext: context,
+              aTitle: "Trabalho recente cadastrado com sucesso!",
+              aSubtitle: "",
+              onOkPressed: () => Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) =>
+                      HomeScreen(company:
+                      GlobalCompanyStore.store.state.company)))
+          );
+        }
+      },
         builder: (BuildContext context, state) {
       if (state is RecentWorkLoadingState) {
         return const Center(child: CircularProgressIndicator());
@@ -114,6 +151,15 @@ class _RecentlyWorksWidgetState extends State<RecentlyWorksWidget> {
       }
     });
   }
+
+  void createRecentWork() {
+    BlocProvider.of<RecentWorkBloc>(context)
+        .add(CreateRecentWorkEvent(request: CreteRecentWorkRequest(
+        date: formatDate(_dateController.text),
+        image: _image != null ? _image! : File("assets/images/person-round.png"),
+        companyId: GlobalCompanyStore.store.state.company.id
+    )));
+  }
 }
 
 Widget _loadRecentWorksImages(final Size size,
@@ -123,37 +169,40 @@ Widget _loadRecentWorksImages(final Size size,
         itemBuilder: (context, index) => SizedBox(
               height: size.height * .4,
               width: size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        recentWorks[index].recentWorkDate.toString(),
-                        style: const TextStyle(color: kDefaultSubtitleColor),
+              child: GestureDetector(
+                onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => RecentWorkEditScreen(recentWork: recentWorks[index]))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          recentWorks[index].recentWorkDate.toString(),
+                          style: const TextStyle(color: kDefaultSubtitleColor),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      height: size.height * .4,
-                      width: size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.grey,
-                      ),
-                      child: _loadImage(recentWorks, index, size)),
-                  if (userType == "admin")
-                    Center(
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                        size: size.width * .1,
-                      ),
-                    )
-                ],
+                    Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        height: size.height * .4,
+                        width: size.width,
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                        ),
+                        child: _loadImage(recentWorks, index, size)),
+                    if (userType == "admin")
+                      Center(
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: size.width * .1,
+                        ),
+                      )
+                  ],
+                ),
               ),
             ),
         controller: controller,
@@ -213,4 +262,10 @@ Widget _loadImage(
         )
     );
   }
+}
+
+DateTime formatDate(final String date) {
+  DateTime formattedDate = DateFormat('dd/MM/yyyy').parse(date);
+
+  return DateTime(formattedDate.year, formattedDate.month, formattedDate.day);
 }
