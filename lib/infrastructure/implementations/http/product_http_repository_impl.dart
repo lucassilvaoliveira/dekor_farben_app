@@ -16,7 +16,7 @@ class ProductHttpRepositoryImpl implements IBaseRepository<Product> {
   @override
   Future<Result<List<Product>, InfraException>> get() async {
     try {
-      final uri = Uri.parse("https://decor-coins.onrender.com/api/companies");
+      final uri = Uri.parse(Routes.companies);
 
       final response = await http.get(uri);
 

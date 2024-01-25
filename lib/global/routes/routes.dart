@@ -1,5 +1,5 @@
 class Routes {
-  static const String _baseURL = "https://decor-coins.onrender.com/api/";
+  static const String _baseURL = "${const String.fromEnvironment("base_url")}/api/";
   static const String authenticate =  "${_baseURL}auth/login";
   static const String users = "${_baseURL}users";
   static const String companies = "${_baseURL}companies";

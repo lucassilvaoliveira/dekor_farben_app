@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:another_flushbar/flushbar.dart';
 import 'package:dekor_farben_app/core/entities/company.dart';
 import 'package:dekor_farben_app/core/entities/user.dart';
 import 'package:dekor_farben_app/global/constants.dart';
@@ -20,6 +21,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../global/routes/routes.dart';
 import '../../global/widgets/primary_button_widget.dart';
 
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
 class LoginFormWidget extends StatefulWidget {
   final PageController pageController;
   final double bottomSheetHeight;
@@ -39,37 +42,43 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   final globalCompanyStore = GlobalCompanyStore.store;
 
   Future<bool> isAuthenticated() async {
-    final response = await http.post(
-      Uri.parse(Routes.authenticate),
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: jsonEncode(<String, String>{
-        "email": _loginController.text,
-        "password": _passwordController.text
-      }),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(Routes.authenticate),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: jsonEncode(<String, String>{
+          "email": _loginController.text,
+          "password": _passwordController.text
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      final prefs = await SharedPreferences.getInstance();
-      final currentTime = DateTime.now().millisecondsSinceEpoch;
-      final expirationTime =
-          currentTime + const Duration(days: 5).inMilliseconds;
+      if (response.statusCode == 200) {
+        final prefs = await SharedPreferences.getInstance();
+        final currentTime = DateTime
+            .now()
+            .millisecondsSinceEpoch;
+        final expirationTime =
+            currentTime + const Duration(days: 5).inMilliseconds;
 
-      final token = jsonDecode(response.body)["token"];
+        final token = jsonDecode(response.body)["token"];
 
-      SecureStorage()
-          .writeSourceData("jwt", token);
+        SecureStorage()
+            .writeSourceData("jwt", token);
 
-      prefs.setInt("jwtExpiration", expirationTime);
+        prefs.setInt("jwtExpiration", expirationTime);
 
-      await _storeCurrentUser(token);
+        await _storeCurrentUser(token);
 
-      return true;
+        return true;
+      }
+
+      return false;
+    } on Exception catch(e) {
+      return false;
     }
-
-    return false;
   }
 
   Future<void> _storeCurrentUser(final String token) async {

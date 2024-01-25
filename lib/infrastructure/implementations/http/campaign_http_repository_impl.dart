@@ -7,7 +7,6 @@ import 'package:dekor_farben_app/helpers/infra_exception.dart';
 import 'package:dekor_farben_app/infrastructure/contracts/i_base_repository.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/global_company_store.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/reducer/global_user_store.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:multiple_result/multiple_result.dart';
 
@@ -17,7 +16,7 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
   @override
   Future<Result<List<Campaign>, InfraException>> get() async {
     try {
-      final uri = Uri.parse("https://decor-coins.onrender.com/api/companies");
+      final uri = Uri.parse(Routes.companies);
 
       final response = await http.get(uri);
 
@@ -137,14 +136,14 @@ class CampaignHttpRepositoryImpl implements IBaseRepository<Campaign> {
       final jwt = await SecureStorage().readSecureData("jwt");
 
       var response = await http.get(uri, headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
         'Authorization':
         'Bearer $jwt',
       });
 
 
-      final Map<String, dynamic> json = jsonDecode(response.body);
+      final Map<String, dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
       final List<dynamic> jsonCompanies = json['items'];
 
       final List<Campaign> campaigns =

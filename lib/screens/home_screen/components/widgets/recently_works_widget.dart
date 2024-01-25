@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dekor_farben_app/blocs/recent_work/recent_work_bloc.dart';
 import 'package:dekor_farben_app/blocs/recent_work/recent_work_event.dart';
 import 'package:dekor_farben_app/blocs/recent_work/recent_work_state.dart';
+import 'package:dekor_farben_app/global/date_utils.dart';
 import 'package:dekor_farben_app/global/widgets/default_camera_widget.dart';
 import 'package:dekor_farben_app/global/widgets/dialogs/on_success_dialog.dart';
 import 'package:dekor_farben_app/infrastructure/recent_work/create_recent_work_request.dart';
@@ -179,7 +180,7 @@ Widget _loadRecentWorksImages(final Size size,
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          recentWorks[index].recentWorkDate.toString(),
+                          dateTimeToString(recentWorks[index].recentWorkDate),
                           style: const TextStyle(color: kDefaultSubtitleColor),
                         ),
                       ),

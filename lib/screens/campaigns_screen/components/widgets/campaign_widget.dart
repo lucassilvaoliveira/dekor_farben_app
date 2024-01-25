@@ -6,6 +6,8 @@ import 'package:dekor_farben_app/screens/home_screen/components/widgets/coins_am
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../global/date_utils.dart';
+
 class CampaignWidget extends StatelessWidget {
   final Size size;
   final Campaign campaign;
@@ -54,7 +56,7 @@ class CampaignWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: size.height * .07),
               child: Text(
-                "Criada em: ${campaign.campaignInitialDate}",
+                "Criada em: ${dateTimeToString(campaign.campaignInitialDate)}",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -70,7 +72,7 @@ class CampaignWidget extends StatelessWidget {
                       .titleLarge
                       ?.copyWith(fontSize: 18)),
               TextSpan(
-                  text: "${campaign.campaignEndDate}",
+                  text: dateTimeToString(campaign.campaignEndDate),
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
