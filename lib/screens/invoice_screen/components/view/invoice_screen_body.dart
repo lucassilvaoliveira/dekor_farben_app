@@ -10,6 +10,7 @@ import 'package:dekor_farben_app/global/widgets/dialogs/on_success_dialog.dart';
 import 'package:dekor_farben_app/global/widgets/primary_select_option_button_widget.dart';
 import 'package:dekor_farben_app/screens/choose_company_screen/components/reducer/global_company_store.dart';
 import 'package:dekor_farben_app/screens/fullscreen_image/full_screen_image.dart';
+import 'package:dekor_farben_app/screens/home_screen/home_screeen.dart';
 import 'package:dekor_farben_app/screens/invoice_screen/invoice_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,18 @@ class _InvoiceScreenBodyState extends State<InvoiceScreenBody> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final company = GlobalCompanyStore.store.state.company;
+
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 26, vertical: 60),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const AppBarWidget(title: 'Notas Fiscais'),
+              AppBarWidget(
+                  onBack: () => Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) =>
+                          HomeScreen(company: company))),
+                  title: 'Notas Fiscais'),
               Container(
                   height: size.height,
                   width: size.width,

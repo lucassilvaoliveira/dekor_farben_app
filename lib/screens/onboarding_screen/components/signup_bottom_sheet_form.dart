@@ -8,6 +8,7 @@ import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/te
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -15,6 +16,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../blocs/user/user_bloc.dart';
 import '../../../blocs/user/user_state.dart';
+import '../../../global/constants.dart';
 import '../../../global/widgets/primary_button_widget.dart';
 
 class SignUpBottomSheetForm extends StatefulWidget {
@@ -92,7 +94,7 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
     final mediaQuery = MediaQuery.of(context);
     final size = mediaQuery.size;
 
-    return BlocListener<UserBloc, UserState>(
+    return BlocConsumer<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserCreateSuccessState) {
           Navigator.push(
@@ -107,73 +109,89 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
           showErrorAlert(context, "Ocorreu Algo Inesperado!", "Tente novamente!");
         }
       },
-      child: Container(
-        margin: const EdgeInsets.all(24),
-        child: Padding(
-          padding: mediaQuery.viewInsets,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Crie sua conta',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge),
-                  const SizedBox(height: 25),
-                  TextFieldWidget(
+      builder: (BuildContext context, UserState state) {
+        if (state is UserCreateLoadingState) {
+          return const Center(
+            child: SpinKitCircle(
+              color: kDefaultPrimaryColor,
+              size: 100,
+            )
+          );
+        } else {
+          return _loadSignupForm(size);
+        }
+      },
+    );
+  }
+
+  Widget _loadSignupForm(Size size) {
+    return Container(
+      margin: const EdgeInsets.all(24),
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Crie sua conta',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleLarge),
+                const SizedBox(height: 25),
+                TextFieldWidget(
                     label: 'Nome',
                     icon: Icons.person,
                     controller: _nameController,
                     formValidator: (name) => Validators
                         .nameValidator(name)
                         .tryGetError()
-                  ),
-                  TextFieldWidget(
+                ),
+                TextFieldWidget(
                     label: 'Email',
                     icon: Icons.email,
                     controller: _emailController,
                     formValidator: (value) => Validators
                         .emailValidator(value)
                         .tryGetError()
-                  ),
-                  TextFieldWidget(
-                    label: 'CPF',
-                    icon: Icons.key,
-                    controller: _cpfController,
-                    keyboardType: TextInputType.number,
-                    formValidator: (value) => Validators
-                        .cpfValidator(value)
-                        .tryGetError(),
-                    inputFormatters: [
-                      _cpfMaskFormatter
-                    ],
-                  ),
-                  TextFieldWidget(
-                    label: 'Data de nascimento',
-                    icon: Icons.cake,
-                    controller: _birthdayController,
-                    keyboardType: TextInputType.datetime,
-                    formValidator: (value) => Validators
-                        .birthDayValidator(value)
-                        .tryGetError(),
-                    inputFormatters: [
-                      _birthDayMaskFormatter
-                    ],
-                  ),
-                  TextFieldWidget(
-                    label: 'Telefone',
-                    icon: Icons.email,
-                    controller: _phoneController,
-                    keyboardType: TextInputType.number,
-                    formValidator: (value) => Validators
-                        .telephoneValidator(value)
-                        .tryGetError(),
-                    inputFormatters: [_telephoneNumberMaskFormatter],
-                  ),
-                  TextFieldWidget(
+                ),
+                TextFieldWidget(
+                  label: 'CPF',
+                  icon: Icons.key,
+                  controller: _cpfController,
+                  keyboardType: TextInputType.number,
+                  formValidator: (value) => Validators
+                      .cpfValidator(value)
+                      .tryGetError(),
+                  inputFormatters: [
+                    _cpfMaskFormatter
+                  ],
+                ),
+                TextFieldWidget(
+                  label: 'Data de nascimento',
+                  icon: Icons.cake,
+                  controller: _birthdayController,
+                  keyboardType: TextInputType.datetime,
+                  formValidator: (value) => Validators
+                      .birthDayValidator(value)
+                      .tryGetError(),
+                  inputFormatters: [
+                    _birthDayMaskFormatter
+                  ],
+                ),
+                TextFieldWidget(
+                  label: 'Telefone',
+                  icon: Icons.email,
+                  controller: _phoneController,
+                  keyboardType: TextInputType.number,
+                  formValidator: (value) => Validators
+                      .telephoneValidator(value)
+                      .tryGetError(),
+                  inputFormatters: [_telephoneNumberMaskFormatter],
+                ),
+                TextFieldWidget(
                     label: 'Senha',
                     icon: Icons.lock,
                     hidden: true,
@@ -181,39 +199,38 @@ class _SignUpBottomSheetFormState extends State<SignUpBottomSheetForm> {
                     formValidator: (value) => Validators
                         .passwordValidator(value)
                         .tryGetError()
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (widget.pageController.page == 1) {
-                            widget.pageController.animateToPage(0,
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.ease);
-                          }
-                        },
-                        child: Text('Fazer Login',
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontSize: 20)),
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        width: size.width * 0.4,
-                        child: PrimaryButtonWidget(
-                            text: 'Criar',
-                            onPressed: () => {
-                                  if (_formKey.currentState!.validate())
-                                    {doSignup(context)}
-                                }),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (widget.pageController.page == 1) {
+                          widget.pageController.animateToPage(0,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.ease);
+                        }
+                      },
+                      child: Text('Fazer Login',
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(fontSize: 20)),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: size.width * 0.4,
+                      child: PrimaryButtonWidget(
+                          text: 'Criar',
+                          onPressed: () => {
+                            if (_formKey.currentState!.validate())
+                              {doSignup(context)}
+                          }),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),

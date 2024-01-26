@@ -14,6 +14,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   UserBloc() : super(UserGetInitialState()) {
     on<CreateUserEvent>((event, emit) async {
+      emit(UserCreateLoadingState());
+
       final result = await createUserUseCase.call(user: event.user);
 
       if (result.isSuccess()) {

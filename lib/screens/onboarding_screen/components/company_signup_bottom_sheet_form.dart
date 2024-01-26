@@ -9,12 +9,14 @@ import 'package:dekor_farben_app/screens/onboarding_screen/components/widgets/te
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../blocs/user/user_bloc.dart';
 import '../../../blocs/user/user_state.dart';
+import '../../../global/constants.dart';
 import '../../../global/widgets/primary_button_widget.dart';
 
 class CompanySignupBottomSheetForm extends StatefulWidget {
@@ -81,7 +83,7 @@ class _SignUpBottomSheetFormState extends State<CompanySignupBottomSheetForm> {
     final mediaQuery = MediaQuery.of(context);
     final size = mediaQuery.size;
 
-    return BlocListener<UserBloc, UserState>(
+    return BlocConsumer<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserCreateSuccessState) {
           final globalCompanyStore = GlobalCompanyStore.store;
@@ -100,101 +102,116 @@ class _SignUpBottomSheetFormState extends State<CompanySignupBottomSheetForm> {
           showErrorAlert(context, "Ocorreu Algo Inesperado!", "Tente novamente!");
         }
       },
-      child: Container(
-        margin: const EdgeInsets.all(24),
-        child: Padding(
-          padding: mediaQuery.viewInsets,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Crie sua conta',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge),
-                  const SizedBox(height: 25),
-                  TextFieldWidget(
-                      label: 'Nome',
-                      icon: Icons.person,
-                      controller: _nameController,
-                      formValidator: (name) => Validators
-                          .nameValidator(name)
-                          .tryGetError()
-                  ),
-                  TextFieldWidget(
-                      label: 'Email',
-                      icon: Icons.email,
-                      controller: _emailController,
-                      formValidator: (value) => Validators
-                          .emailValidator(value)
-                          .tryGetError()
-                  ),
-                  TextFieldWidget(
-                    label: 'CNPJ',
-                    icon: Icons.key,
-                    controller: _cnpjController,
-                    keyboardType: TextInputType.number,
-                    formValidator: (value) => Validators
-                        .cnpjValidator(value)
-                        .tryGetError(),
-                    inputFormatters: [
-                      _cnpjMaskFormatter
-                    ],
-                  ),
-                  TextFieldWidget(
-                    label: 'Telefone',
+      builder: (BuildContext context, UserState state) {
+        if (state is UserCreateLoadingState) {
+          return const Center(
+            child: SpinKitCircle(
+              color: kDefaultPrimaryColor,
+              size: 100,
+            ),
+          );
+        } else {
+          return _loadSignupForm(size);
+        }
+      },
+    );
+  }
+
+  _loadSignupForm(final Size size) {
+    return Container(
+      margin: const EdgeInsets.all(24),
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Crie sua conta',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleLarge),
+                const SizedBox(height: 25),
+                TextFieldWidget(
+                    label: 'Nome',
+                    icon: Icons.person,
+                    controller: _nameController,
+                    formValidator: (name) => Validators
+                        .nameValidator(name)
+                        .tryGetError()
+                ),
+                TextFieldWidget(
+                    label: 'Email',
                     icon: Icons.email,
-                    controller: _phoneController,
-                    keyboardType: TextInputType.number,
+                    controller: _emailController,
                     formValidator: (value) => Validators
-                        .telephoneValidator(value)
-                        .tryGetError(),
-                    inputFormatters: [_telephoneNumberMaskFormatter],
-                  ),
-                  TextFieldWidget(
-                      label: 'Senha',
-                      icon: Icons.lock,
-                      hidden: true,
-                      controller: _passwordController,
-                      formValidator: (value) => Validators
-                          .passwordValidator(value)
-                          .tryGetError()
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (widget.pageController.page == 1) {
-                            widget.pageController.animateToPage(0,
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.ease);
-                          }
-                        },
-                        child: Text('Fazer Login',
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontSize: 20)),
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        width: size.width * 0.4,
-                        child: PrimaryButtonWidget(
-                            text: 'Criar',
-                            onPressed: () => {
-                              if (_formKey.currentState!.validate())
-                                {doSignup(context)}
-                            }),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                        .emailValidator(value)
+                        .tryGetError()
+                ),
+                TextFieldWidget(
+                  label: 'CNPJ',
+                  icon: Icons.key,
+                  controller: _cnpjController,
+                  keyboardType: TextInputType.number,
+                  formValidator: (value) => Validators
+                      .cnpjValidator(value)
+                      .tryGetError(),
+                  inputFormatters: [
+                    _cnpjMaskFormatter
+                  ],
+                ),
+                TextFieldWidget(
+                  label: 'Telefone',
+                  icon: Icons.email,
+                  controller: _phoneController,
+                  keyboardType: TextInputType.number,
+                  formValidator: (value) => Validators
+                      .telephoneValidator(value)
+                      .tryGetError(),
+                  inputFormatters: [_telephoneNumberMaskFormatter],
+                ),
+                TextFieldWidget(
+                    label: 'Senha',
+                    icon: Icons.lock,
+                    hidden: true,
+                    controller: _passwordController,
+                    formValidator: (value) => Validators
+                        .passwordValidator(value)
+                        .tryGetError()
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (widget.pageController.page == 1) {
+                          widget.pageController.animateToPage(0,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.ease);
+                        }
+                      },
+                      child: Text('Fazer Login',
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(fontSize: 20)),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: size.width * 0.4,
+                      child: PrimaryButtonWidget(
+                          text: 'Criar',
+                          onPressed: () => {
+                            if (_formKey.currentState!.validate())
+                              {doSignup(context)}
+                          }),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),

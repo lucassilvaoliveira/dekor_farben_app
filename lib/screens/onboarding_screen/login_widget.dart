@@ -1,3 +1,4 @@
+import 'package:dekor_farben_app/blocs/auth/auth_bloc.dart';
 import 'package:dekor_farben_app/blocs/user/user_bloc.dart';
 import 'package:dekor_farben_app/global/constants.dart';
 import 'package:dekor_farben_app/screens/onboarding_screen/components/company_signup_bottom_sheet_form.dart';
@@ -33,8 +34,15 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     final bottomSheetHeigh = 400 + progress * 320;
 
-    return BlocProvider<UserBloc>(
-      create: (context) => UserBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UserBloc>(
+            create: (context) => UserBloc()
+        ),
+        BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(),
+        )
+      ],
       child: SizedBox(
           height: bottomSheetHeigh,
           child: Stack(fit: StackFit.expand, children: [
